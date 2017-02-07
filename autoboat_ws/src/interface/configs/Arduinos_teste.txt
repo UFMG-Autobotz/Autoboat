@@ -1,0 +1,39 @@
+# Dado um Arduino_ID, todas as mensagens em seguida se referem a esse arduino, até que um novo Arduino_ID apareça
+
+Arduino_ID = MAST
+add_receive_message = M_BU
+add_receive_message = M_Ibat
+add_receive_message = M_Vbat
+add_receive_message = M_LL
+add_receive_message = M_LA
+add_receive_message = M_LV
+
+Arduino_ID = BOAT
+add_receive_message = M_A
+add_receive_message = M_BC
+add_receive_message = M_GI
+add_receive_message = M_U
+add_send_message = M_SB
+add_send_message = M_G
+add_send_message = M_P
+
+Arduino_ID = COL
+add_receive_message = M_CC
+add_send_message = M_SC
+
+Arduino_ID = TESTE
+add_receive_message = M_A
+add_receive_message = M_ARD
+add_receive_message = M_BC
+add_receive_message = M_BU
+add_receive_message = M_CC
+add_receive_message = M_GI
+add_receive_message = M_Ibat
+add_receive_message = M_LA
+add_receive_message = M_LL
+add_receive_message = M_LV
+add_receive_message = M_U
+add_receive_message = M_Vbat
+add_send_message = M_G
+add_send_message = M_SB
+add_send_message = M_P

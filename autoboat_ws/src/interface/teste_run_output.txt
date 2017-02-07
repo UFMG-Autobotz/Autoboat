@@ -1,0 +1,1898 @@
+rodrigo@rodrigo-desktop:~/Dropbox/Autobotz/autobotz_ws$ rosrun interface teste_interface 
+24 - /dev/ttyACM0
+25 - /dev/ttyACM1
+M_A - 0
+M_AB - 1
+M_ABU - 2
+M_AC - 3
+M_ACU - 4
+M_AM - 5
+M_AMU - 6
+M_ARD - 7
+M_BC - 8
+M_BU - 9
+M_CC - 10
+M_G - 11
+M_GI - 12
+M_GO - 13
+M_Ibat - 14
+M_LA - 15
+M_LL - 16
+M_LV - 17
+M_P - 18
+M_SB - 19
+M_SC - 20
+M_U - 21
+M_Vbat - 22
+Run Time: 2.38419e-07
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 2 3
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Opened comport 24
+Enviado: Id_msg of length 6
+Received 0 bytes.
+No response on port /dev/ttyACM0
+Enviado: Id_msg of length 6
+Received 10 bytes: 7-TESTE;##
+Got response on port /dev/ttyACM0, ID = TESTE
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 10.5469
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 2.50657
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+unable to get portstatus: Input/output error
+unable to set portstatus: Input/output error
+Closed comport 24
+Run Time: 22.4999
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 2.50657
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Run Time: 34.4999
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 2.50657
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Run Time: 46.4999
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 2.50657
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Opened comport 24
+Enviado: Id_msg of length 6
+Received 0 bytes.
+No response on port /dev/ttyACM0
+Enviado: Id_msg of length 6
+Received 10 bytes: 7-TESTE;##
+Got response on port /dev/ttyACM0, ID = TESTE
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 59.053
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 70.547
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 82.5469
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 94.5469
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 106.547
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+unable to get portstatus: Input/output error
+unable to set portstatus: Input/output error
+Closed comport 24
+Run Time: 118.5
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Run Time: 130.5
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 58.5064
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------
+Opened comport 24
+Enviado: Id_msg of length 6
+Received 0 bytes.
+No response on port /dev/ttyACM0
+Enviado: Id_msg of length 6
+Received 10 bytes: 7-TESTE;##
+Got response on port /dev/ttyACM0, ID = TESTE
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 142.547
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 134.507
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 154.547
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 134.507
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+unable to get portstatus: Input/output error
+unable to set portstatus: Input/output error
+Closed comport 24
+Opened comport 24
+Enviado: Id_msg of length 6
+Received 0 bytes.
+No response on port /dev/ttyACM0
+Enviado: Id_msg of length 6
+Received 10 bytes: 7-TESTE;##
+Got response on port /dev/ttyACM0, ID = TESTE
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Run Time: 166.547
+Ports:
+	/dev/ttyACM0: Existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: /dev/ttyACM0, number 24
+	Connection state: 1
+	Last up time: 162.506
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			0
+------------------------------------------------
+LED_verde:			0
+------------------------------------------------
+button:				0
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			0
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				0
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		1
+------------------------------------------------
+caracol_stepper_current:	-1
+------------------------------------------------
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+Enviado: Dt_msg,TESTE,M_G-0,M_SB-1:0:-1,M_P-0:1:0:0; of length 43
+Received 82 bytes: 7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;
+Got message from TESTE:7-TESTE,0-0.00,8-1,9-0,10--1,12-0,14-0,15-0,16-0,17-0,21-0.00:1.00:0.00:0.00,22-0;that's it
+
+unable to get portstatus: Input/output error
+unable to set portstatus: Input/output error
+Closed comport 24
+Run Time: 178.5
+Ports:
+	/dev/ttyACM0: Nao existe
+	/dev/ttyACM1: Nao existe
+
+Arduino MAST:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_BU
+		M_Ibat
+		M_Vbat
+		M_LL
+		M_LA
+		M_LV
+	Send
+
+
+Arduino BOAT:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_A
+		M_BC
+		M_GI
+		M_U
+	Send
+		M_SB
+		M_G
+		M_P
+
+
+Arduino COL:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: -1
+	Receive:
+		M_CC
+	Send
+		M_SC
+
+
+Arduino TESTE:
+	Port: empty, number -1
+	Connection state: 0
+	Last up time: 162.506
+	Receive:
+		M_A
+		M_ARD
+		M_BC
+		M_BU
+		M_CC
+		M_GI
+		M_Ibat
+		M_LA
+		M_LL
+		M_LV
+		M_U
+		M_Vbat
+	Send
+		M_G
+		M_SB
+		M_P
+
+
+LED_laranja:			0
+------------------------------------------------
+LED_azul:			1
+------------------------------------------------
+LED_verde:			1
+------------------------------------------------
+button:				1
+------------------------------------------------
+v_bat:				0
+------------------------------------------------
+i_total:			1
+------------------------------------------------
+ardumaster_up:			0
+------------------------------------------------
+ardumaster_up_since:		-1
+------------------------------------------------
+arduboat_up:			0
+------------------------------------------------
+arduboat_up_since:		-1
+------------------------------------------------
+arducol_up:			0
+------------------------------------------------
+arducol_up_since:		-1
+------------------------------------------------
+ultrassons:			0 1 0 0
+------------------------------------------------
+angulo:				2
+------------------------------------------------
+IR_in:				0
+------------------------------------------------
+base_stepper_current:		2
+------------------------------------------------
+caracol_stepper_current:	5
+------------------------------------------------

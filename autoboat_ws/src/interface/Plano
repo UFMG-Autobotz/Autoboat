@@ -1,0 +1,20 @@
+Fluxo
+	Checar quais portas existem
+	Conectar às portas que existem
+	Checar o ID - mandar uma mensagem pedindo o ID, arduino responde com o ID (ID_ARDUINO é um ID de mensagem)
+	Salvar o ID assocado a cada porta
+	Se o ID ja existir, mudar o status dele para conectado e à qual porta
+	Se uma porta parar de exitir, marcar o ID do arduino perdido como desconectado
+	
+	Atualizar os tópicos de diagnóstico se necessário
+
+	Ler tópicos do ROS
+	Fazer conversões necessárias
+
+	Dependendo do ID mandar as mensagens e encaminhar as mesagens recebidas
+
+	Escrever no ROS o que o Arduino mandou
+
+
+Mensagem
+	Dt_msg,ID_ARDUINO,ID_Mensagem-MSG,ID_Mensagem-MSG,ID_Mensagem-MSG,ID_Mensagem-MSG,ID_Mensagem-MSGvetor:MSGvetor:MSGvetor;

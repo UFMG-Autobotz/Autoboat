@@ -1,0 +1,5 @@
+# Escreva o nome da porta, seguido do ID, como mostrado abaixo
+# /dev/minhaporta = 15
+
+/dev/ttyACM0 = 24
+/dev/ttyACM1 = 25

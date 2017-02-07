@@ -1,0 +1,25 @@
+# Escreva o ID da mensagem, seguido do número que a identifica no código
+
+M_A = 0
+M_AB = 1
+M_ABU = 2
+M_AC = 3
+M_ACU = 4
+M_AM = 5
+M_AMU = 6
+M_ARD = 7
+M_BC = 8
+M_BU = 9
+M_CC = 10
+M_G = 11
+M_GI = 12
+M_GO = 13
+M_Ibat = 14
+M_LA = 15
+M_LL = 16
+M_LV = 17
+M_P = 18
+M_SB = 19
+M_SC = 20
+M_U = 21
+M_Vbat = 22
