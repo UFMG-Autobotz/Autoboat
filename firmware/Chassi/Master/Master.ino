@@ -33,21 +33,33 @@ void loop(){
         if (TXbuff[2] == 180){
             TXbuff[2] = 0;
             TXbuff[0] = 0;
-            
-            TXbuff[1] = 0;
-            TXbuff[3] = 0;
-            
+        
+      
             //delay(6000);
         }else{
             TXbuff[2] += 30;
             TXbuff[0] += 30;
             
-            TXbuff[1] += 50;
-            TXbuff[3] += 50;
             //delay(1000);
         }
         
-
+        //muda as velocidades
+        if (TXbuff[1] > 255){
+            TXbuff[1] = 0;
+            TXbuff[3] = 0;
+        
+      
+            //delay(6000);
+        }else{
+            TXbuff[1] += 50;
+            TXbuff[3] += 50;
+            
+            //delay(1000);
+        }
+        
+        
+        
+          
         //faz um pisca pisca com os leds da placa de interface
         if(t == 3){
 
@@ -76,7 +88,7 @@ void loop(){
             t++;
             
         }
-        delay(500);
+        delay(2000);
         
         
         Master.write(chassi_address, TXbuff, TX_MSG_SIZE);

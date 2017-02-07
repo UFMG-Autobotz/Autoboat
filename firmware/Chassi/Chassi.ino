@@ -27,6 +27,7 @@ const int LED3 =  8;
 //pinos da propulsao
 const int DIRR = 6;
 const int PWMR = 5;
+
 const int DIRL = 10;
 const int PWML = 9;
 
