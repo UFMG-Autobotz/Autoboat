@@ -1187,7 +1187,7 @@ interface gráfica</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="5">
+           <item row="4" column="4" colspan="3">
             <widget class="QLineEdit" name="painel_ang">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
@@ -2868,6 +2868,9 @@ interface gráfica</string>
                      </disabled>
                     </palette>
                    </property>
+                   <property name="minimum">
+                    <number>-50</number>
+                   </property>
                    <property name="maximum">
                     <number>50</number>
                    </property>
@@ -3187,11 +3190,11 @@ interface gráfica</string>
                    <property name="maximum">
                     <number>2</number>
                    </property>
-                   <property name="pageStep">
+                   <property name="singleStep">
                     <number>1</number>
                    </property>
-                   <property name="value">
-                    <number>0</number>
+                   <property name="pageStep">
+                    <number>1</number>
                    </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>

@@ -1,26 +1,20 @@
 #include <ros/ros.h>
-#include <ros/network.h>
-#include <string>
-#include <std_msgs/String.h>
 #include <std_msgs/Bool.h>
-#include <telemetria/Stepper_msg.h>
-#include <telemetria/Prop_msg.h>
-#include <sstream>
+#include <autoboat_msgs/Stepper_msg.h>
+#include <autoboat_msgs/Prop_msg.h>
 #include "../include/telemetria/teleop_node.hpp"
 
 namespace telemetria
 {
 
-TeleopNode::TeleopNode(int argc, char** argv) :
+TeleopNode::TeleopNode(int argc, char** argv) : // Inicializa variáveis
 	init_argc(argc),
     init_argv(argv),
     estado_garra(true),
     vel_esq(0),
-    ang_esq(true),
+    ang_esq(0),
     vel_dir(0),
-    ang_dir(true),
-    vel_ang(0),
-    vel_lin(0),
+    ang_dir(0),
     base_pos(0),
     base_vel(60),
     base_dir(0),
@@ -31,86 +25,69 @@ TeleopNode::TeleopNode(int argc, char** argv) :
 
 TeleopNode::~TeleopNode()
 {
-    if(ros::isStarted())
+    if(ros::isStarted())    // Verifica se ros::start() foi chamada
     {
-      ros::shutdown();
-      ros::waitForShutdown();
+      ros::shutdown();  // Pede o ROS para desligar
+      ros::waitForShutdown();   // Espera o desligamento
     }
 
-    wait();
+    wait(); // Espera run() retornar
 }
 
 bool TeleopNode::init()
 {
-    ros::init(init_argc,init_argv,"teleoperacao");
+    ros::init(init_argc,init_argv,"teleoperacao");  // Inicializa ROS
 
-    if (!ros::master::check())
+    if (!ros::master::check())  // Confere se o roscore foi iniciado
 		return false;
 
-    ros::start();
+    ros::start();       // Inicializa nó
     ros::NodeHandle n;
 
-    base_pub = n.advertise<telemetria::Stepper_msg>("autoboat/caracol/base_stepper_cmd",200);
-    caracol_pub = n.advertise<telemetria::Stepper_msg>("autoboat/caracol/caracol_stepper_cmd",200);
-    prop_pub = n.advertise<telemetria::Prop_msg>("autoboat/prop",350);
-    garra_pub = n.advertise<std_msgs::Bool>("autoboat/garra/open",80);
+    // Publishers
+    base_pub    = n.advertise <autoboat_msgs::Stepper_msg>("autoboat/caracol/base_stepper_cmd",20);
+    caracol_pub = n.advertise <autoboat_msgs::Stepper_msg>("autoboat/caracol/caracol_stepper_cmd",20);
+    prop_pub    = n.advertise <autoboat_msgs::Prop_msg>   ("autoboat/prop",35);
+    garra_pub   = n.advertise <std_msgs::Bool>            ("autoboat/garra/open",8);
 
-    start();
+    start();    // Inicializa thread e chama run()
 
     return true;
 }
 
-
-void TeleopNode::run()
+void TeleopNode::run()      // Comportamento da thread
 {
-    while (ros::ok());
+    while (ros::ok());      // Espera desativação do nó
 
-    std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;
-    Q_EMIT rosShutdown();
+    Q_EMIT rosShutdown();   // Sinaliza que o nó foi desativado
 }
 
+// Para publicar nos tópicos, a aba de teleoperação chama as funções a seguir.
 
 void TeleopNode::comando_garra()
 {
-    estado_garra = !estado_garra;
-
     std_msgs::Bool msg;
+
     msg.data = estado_garra;
 
     garra_pub.publish(msg);
 }
 
-#define sg_vel(d) ((ang_##d) ? vel_##d : -vel_##d)
-
 void TeleopNode::comando_prop()
 {
-    telemetria::Prop_msg msg;
+    autoboat_msgs::Prop_msg msg;
 
-    msg.vel_esq.data = fabs(vel_esq);
-    msg.vel_dir.data = fabs(vel_dir);
-    msg.ang_esq.data = vel_esq >= 0;
-    msg.ang_dir.data = vel_dir >= 0;
+    msg.vel_esq.data = vel_esq;
+    msg.vel_dir.data = vel_dir;
+    msg.ang_esq.data = ang_esq;
+    msg.ang_dir.data = ang_dir;
 
     prop_pub.publish(msg);
-
-    vel_ang = (sg_vel(dir) - sg_vel(esq)) / LARGURA;
-    vel_lin = (sg_vel(dir) + sg_vel(esq)) / 2;
-}
-
-void TeleopNode::atualiza_vel()
-{
-    float dif;
-    dif = vel_ang * LARGURA;
-
-    vel_esq = vel_lin - dif/2;
-    vel_dir = vel_lin + dif/2;
-
-    comando_prop();
 }
 
 void TeleopNode::comando_base()
 {
-    telemetria::Stepper_msg msg;
+    autoboat_msgs::Stepper_msg msg;
 
     msg.setpoint.data = base_pos;
     msg.speed.data = base_vel;
@@ -121,7 +98,7 @@ void TeleopNode::comando_base()
 
 void TeleopNode::comando_caracol()
 {
-    telemetria::Stepper_msg msg;
+    autoboat_msgs::Stepper_msg msg;
 
     msg.setpoint.data = caracol_pos;
     msg.speed.data = caracol_vel;

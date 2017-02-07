@@ -2,10 +2,9 @@
 #define telemetria_TELEOPNODE_HPP_
 
 #include <ros/ros.h>
-#include <string>
 #include <QThread>
 
-#define LARGURA 80
+#define LARGURA 80  // Largura do barco
 
 namespace telemetria
 {
@@ -16,22 +15,24 @@ class TeleopNode : public QThread
 
 public:
 
-    TeleopNode(int argc, char** argv );
+    TeleopNode(int argc, char** argv);
     virtual ~TeleopNode();
 
-    bool init();
-    void tchau();
-	void run();
+    // Variáveis alteradas pela aba de teleoperação
+    bool estado_garra;
+    int base_vel, base_pos, base_dir, caracol_vel, caracol_pos, caracol_dir;
+    float vel_dir, vel_esq, ang_dir, ang_esq;
 
+    // Funções da thread
+    bool init();
+	void run();
+    void tchau();
+
+    // Comunicação entre a aba de teleoperação e os publishers
     void comando_garra();
     void comando_prop();
-    void atualiza_vel();
     void comando_base();
     void comando_caracol();
-
-    bool estado_garra, ang_dir, ang_esq;
-    int base_vel, base_pos, base_dir, caracol_vel, caracol_pos, caracol_dir;
-    float vel_dir, vel_esq, vel_ang, vel_lin;
 
 Q_SIGNALS:
 

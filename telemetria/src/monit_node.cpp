@@ -1,13 +1,13 @@
 #include <ros/ros.h>
 #include <std_msgs/Bool.h>
-#include <telemetria/Stepper_msg.h>
-#include <telemetria/Prop_msg.h>
+#include <autoboat_msgs/Stepper_msg.h>
+#include <autoboat_msgs/Prop_msg.h>
 #include "../include/telemetria/monit_node.hpp"
 
 namespace telemetria
 {
 
-MonitNode::MonitNode(int argc, char** argv) :
+MonitNode::MonitNode(int argc, char** argv) :   // Inicializa variáveis
     init_argc(argc),
     init_argv(argv)
 {
@@ -17,68 +17,75 @@ MonitNode::MonitNode(int argc, char** argv) :
 
 MonitNode::~MonitNode()
 {
-    if(ros::isStarted())
+    if(ros::isStarted())    // Verifica se ros::start() foi chamada
     {
-      ros::shutdown();
-      ros::waitForShutdown();
+      ros::shutdown();  // Pede o ROS para desligar
+      ros::waitForShutdown();   // Espera o desligamento
     }
 
-    wait();
+    wait(); // Espera run() retornar
 }
 
 bool MonitNode::init()
 {
-    ros::init(init_argc,init_argv,"monitoramento");
+    ros::init(init_argc,init_argv,"monitoramento");  // Inicializa ROS
 
-    if (!ros::master::check())
+    if (!ros::master::check())  // Confere se o roscore foi iniciado
         return false;
 
-    ros::start();
+    ros::start();       // Inicializa nó
     ros::NodeHandle n;
 
-    base_sub = n.subscribe("autoboat/caracol/base_stepper_current",1,&MonitNode::base_cb,this);
-    caracol_sub = n.subscribe("autoboat/caracol/caracol_stepper_current",1,&MonitNode::caracol_cb,this);
-    prop_sub = n.subscribe("autoboat/prop",1,&MonitNode::prop_cb,this);
+    // Subscribers
+    base_sub       = n.subscribe("autoboat/caracol/base_stepper_current",1,&MonitNode::base_cb,this);
+    caracol_sub    = n.subscribe("autoboat/caracol/caracol_stepper_current",1,&MonitNode::caracol_cb,this);
+    prop_sub       = n.subscribe("autoboat/prop",1,&MonitNode::prop_cb,this);
     garra_open_sub = n.subscribe("autoboat/garra/open",1,&MonitNode::garra_open_cb,this);
-    garra_in_sub = n.subscribe("autoboat/garra/IR_in",1,&MonitNode::garra_in_cb,this);
-    garra_out_sub = n.subscribe("autoboat/garra/IR_out",1,&MonitNode::garra_out_cb,this);
-    imu_sub = n.subscribe("autoboat/angulo",1,&MonitNode::imu_cb,this);
-    //camera_sub = n.subscribe("autoboat/camera/rgb/image_color",1,&MonitNode::camera_cb,this);
-    bateria_i_sub = n.subscribe("autoboat/power/v_bat",1,&MonitNode::bateria_i_cb,this);
-    bateria_v_sub = n.subscribe("autoboat/power/i_bat",1,&MonitNode::bateria_v_cb,this);
-    ultrassom_sub = n.subscribe("autoboat/sensors/ultrassons",1,&MonitNode::ultrassom_cb,this);
+    garra_in_sub   = n.subscribe("autoboat/garra/IR_in",1,&MonitNode::garra_in_cb,this);
+    garra_out_sub  = n.subscribe("autoboat/garra/IR_out",1,&MonitNode::garra_out_cb,this);
+    imu_sub        = n.subscribe("autoboat/angulo",1,&MonitNode::imu_cb,this);
+    bateria_i_sub  = n.subscribe("autoboat/power/v_bat",1,&MonitNode::bateria_i_cb,this);
+    bateria_v_sub  = n.subscribe("autoboat/power/i_bat",1,&MonitNode::bateria_v_cb,this);
+    ultrassom_sub  = n.subscribe("autoboat/sensors/ultrassons",1,&MonitNode::ultrassom_cb,this);
+//  camera_sub     = n.subscribe("autoboat/camera/rgb/image_color",1,&MonitNode::camera_cb,this);
 
-    start();
+    start();    // Inicializa thread e chama run()
 
     return true;
 }
 
-void MonitNode::run()
+void MonitNode::run()   // Comportamento da thread
 {
     while (ros::ok())
-        ros::spin();
+        ros::spin();    // Roda os callbaks
 
-    std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;
-    Q_EMIT rosShutdown();
+    std::cout << "Fim da operação de telemetria." << std::endl;
+
+    Q_EMIT rosShutdown(); // Sinaliza que o nó foi desativado
 }
 
-void MonitNode::prop_cb(const telemetria::Prop_msg &msg)
+// Callbacks:
+
+void MonitNode::prop_cb(const autoboat_msgs::Prop_msg &msg)
 {
     msg_prop = msg;
 
-    lin = msg.vel_dir.data * cos(msg.ang_dir.data*M_PI/180) + msg.vel_esq.data * cos(msg.ang_esq.data*M_PI/180);
+    // Atualiza valores de velocidade linear e angular baseados na posição e potência dos propulsores.
+    // Esses valores não são publicados, servem apenas para visualização na aba de monitoramento.
+
+    lin = (msg.vel_dir.data * cos(msg.ang_dir.data*M_PI/180) + msg.vel_esq.data * cos(msg.ang_esq.data*M_PI/180)) / 2;
     ang = (msg.vel_dir.data * cos(msg.ang_dir.data*M_PI/180) - msg.vel_esq.data * cos(msg.ang_esq.data*M_PI/180)) / LARGURA;
 
     Q_EMIT atual_prop();
 }
 
-void MonitNode::base_cb(const telemetria::Stepper_msg& msg)
+void MonitNode::base_cb(const autoboat_msgs::Stepper_msg& msg)
 {
   msg_base = msg;
   Q_EMIT atual_base();
 }
 
-void MonitNode::caracol_cb(const telemetria::Stepper_msg& msg)
+void MonitNode::caracol_cb(const autoboat_msgs::Stepper_msg& msg)
 {
   msg_caracol = msg;
   Q_EMIT atual_caracol();

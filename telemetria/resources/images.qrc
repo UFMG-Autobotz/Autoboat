@@ -3,8 +3,5 @@
         <file>images/icon.png</file>
         <file>images/logo.png</file>
         <file>images/logo2.png</file>
-        <file>images/64.png</file>
-        <file>images/directive.png</file>
-        <file>images/telemetr.png</file>
     </qresource>
 </RCC>

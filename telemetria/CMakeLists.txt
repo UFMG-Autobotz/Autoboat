@@ -1,22 +1,9 @@
 cmake_minimum_required(VERSION 2.8.0)
 project(telemetria)
 
-find_package(catkin REQUIRED COMPONENTS qt_build roscpp std_msgs genmsg)
+find_package(catkin REQUIRED COMPONENTS qt_build roscpp std_msgs autoboat_msgs)
 
-add_message_files(
-  FILES
-  Stepper_msg.msg
-  Prop_msg.msg
-)
-
-generate_messages(
-  DEPENDENCIES 
-  std_msgs
-)
-
-catkin_package(
-  CATKIN_DEPENDS message_runtime
-)
+catkin_package()
 
 include_directories(${catkin_INCLUDE_DIRS})
 
@@ -34,6 +21,6 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 
 add_executable(telemetria ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
 target_link_libraries(telemetria ${QT_LIBRARIES} ${catkin_LIBRARIES})
-add_dependencies(telemetria telemetria_generate_messages_cpp)
+#add_dependencies(telemetria telemetria_generate_messages_cpp)
 install(TARGETS telemetria RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
