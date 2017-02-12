@@ -61,13 +61,13 @@ void loop()
   switch(RXbuff[0]) // Confere o tipo da mensagem recebida
   {
   case US_frente_tras:
-    ultrassom[0] = RXbuff[1] << 8 + RXbuff[2];  // Frente
-    ultrassom[1] = RXbuff[3] << 8 + RXbuff[4];  // Trás
+    ultrassom[0] = word(RXbuff[1], RXbuff[2]);  // Frente
+    ultrassom[1] = word(RXbuff[3], RXbuff[4]);  // Trás
     break;    
 
   case US_esq_dir:
-    ultrassom[2] = RXbuff[1] << 8 + RXbuff[2];  // Esquerda
-    ultrassom[3] = RXbuff[3] << 8 + RXbuff[4];  // Direita
+    ultrassom[2] = word(RXbuff[1], RXbuff[2]);  // Esquerda
+    ultrassom[3] = word(RXbuff[3], RXbuff[4]);  // Direita
     break;
 
   case interf_LiPO:
