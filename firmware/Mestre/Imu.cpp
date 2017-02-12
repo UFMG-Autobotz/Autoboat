@@ -2,32 +2,8 @@
 #include "MPU6050.h"
 #include "I2Cdev.h"
 #include "I2C.h"
-#include <WireBotzMaster.h> 
 
-//Definir os endereços do manipulador e da base
-#define manipulador_address 8
-#define base_address 9
-#define mestre_address 10
-
-//Definir o tamanho das mensagens de envio (TX) e recebimento (RX)
-#define TX_MSG_SIZE_MAN 4
-#define RX_MSG_SIZE_MAN 2
-#define TX_MSG_SIZE_BAS 4
-#define RX_MSG_SIZE_BAS 4
-
-  //definir as variaveis que serao trabalhadas
-  byte DIR_L; byte DIR_R; byte PWM_L; byte PWM_R;
-  byte US_0; byte US_1; byte US_2; byte US_3;
-  byte TIPO; byte DIR; byte POS; byte PULSE;
-  int IR;
-
-//Definir pinos para os leds e o boto
-int LED_1 = 3;
-int LED_2 = 5;
-int LED_3 = 6;
-int BOTAO = 4;
-int estadoBotao = 0;
-int var = 0;
+float angle_x, angle_y, angle_z;
 
 //Variaveis globais que guardam o ultimo angulo do gyro e os valores filtrados
 unsigned long last_read_time;
@@ -65,7 +41,6 @@ float    base_z_accel;
 float    base_x_gyro;
 float    base_y_gyro;
 float    base_z_gyro;
-
 
 int read_gyro_accel_vals(uint8_t* accel_t_gyro_ptr) {
   // Ler os valores brutos dos sensores.
@@ -137,24 +112,12 @@ void calibrate_sensors() {
   base_x_gyro = x_gyro;
   base_y_gyro = y_gyro;
   base_z_gyro = z_gyro;
-  }
+}
 
-
-
-
-void setup()
-{      
+void setupIMU()
+{
   int error;
   uint8_t c;
-  
-  //Inicializando a comunicação do arduíno mestre
-  Master.begin();
-
-  //Setando os pinos dos LEDs e o Botão da interface
-  pinMode(LED_1, OUTPUT);
-  pinMode(LED_2, OUTPUT);
-  pinMode(LED_3, OUTPUT);
-  pinMode(BOTAO, INPUT);
 
   //Inicializando comunicação I2C com a IMU
   Wire.begin();
@@ -179,23 +142,11 @@ void setup()
   
   //Calibra e inicializa os angulos
   calibrate_sensors();  
-  set_last_read_angle_data(millis(), 0, 0, 0, 0, 0, 0); 
-
-  Serial.begin(9600);
+  set_last_read_angle_data(millis(), 0, 0, 0, 0, 0, 0);
 }
 
-
-void loop()
+void loopIMU()
 {
-  
-  estadoBotao = digitalRead(BOTAO);
-
-  if((estadoBotao) || (var != 0))
-  {   
-    var = 1;
-  
-  //Parte da IMU
-  
   int error;
   double dT;
   accel_t_gyro_union accel_t_gyro;
@@ -242,9 +193,9 @@ void loop()
   // Aplica o filtro complementar nos valores dos angulos dos dois sensores usados - a escolha
   // do alpha foi estimado. 
   float alpha = 0.96;
-  float angle_x = alpha*gyro_angle_x + (1.0 - alpha)*accel_angle_x;
-  float angle_y = alpha*gyro_angle_y + (1.0 - alpha)*accel_angle_y;
-  float angle_z = gyro_angle_z;  //Acelerometro nao da o valor do angulo z
+  angle_x = alpha*gyro_angle_x + (1.0 - alpha)*accel_angle_x;
+  angle_y = alpha*gyro_angle_y + (1.0 - alpha)*accel_angle_y;
+  angle_z = gyro_angle_z;  //Acelerometro nao da o valor do angulo z
   
   // Update the saved data with the latest values
   set_last_read_angle_data(t_now, angle_x, angle_y, angle_z, gyro_angle_x, gyro_angle_y, gyro_angle_z);
@@ -253,6 +204,7 @@ void loop()
   //Angulos filtrados
 
   // Send the data to the serial port
+/*
   Serial.print(F("Angulos filtrados:"));             //Angulos filtrados
   Serial.print(angle_x, 2);
   Serial.print(F(","));
@@ -260,48 +212,6 @@ void loop()
   Serial.print(F(","));
   Serial.print(angle_z, 2);
   Serial.println(F(""));
-
-  
-  //Parte da comunicaçao I2C com os slaves
-        //definir o tamanho dos buffers
-  static byte RXbuff_MAN[RX_MSG_SIZE_MAN];
-  static byte TXbuff_MAN[TX_MSG_SIZE_MAN];
-  static byte RXbuff_BAS[RX_MSG_SIZE_BAS];
-  static byte TXbuff_BAS[TX_MSG_SIZE_BAS];	
-	
-
-  //O mestre le do arduino da base os sensores ultrassonicos e manda para o programa
-	Master.read(base_address, RXbuff_BAS, RX_MSG_SIZE_BAS);
-	
-	US_0 = RXbuff_BAS[0];
-	US_1 = RXbuff_BAS[1];
-	US_2 = RXbuff_BAS[2];
-	US_3 = RXbuff_BAS[3]; 
-        
-  //O mestre le do arduino do manipulador o sensor IR
-	Master.read(manipulador_address, RXbuff_MAN, RX_MSG_SIZE_MAN);
-
-	IR = RXbuff_MAN[0];
-  IR = IR + (RXbuff_MAN[1] << 8);
-
-  // O computador tem que enviar os dados para serem salvos num buffer e enviar para os servos
-
-  TXbuff_BAS[0] = DIR_L;
-	TXbuff_BAS[1] = PWM_L;
-	TXbuff_BAS[2] = DIR_R;
-	TXbuff_BAS[3] = PWM_R;
-
-	Master.write(base_address, TXbuff_BAS, TX_MSG_SIZE_BAS);
-
-    
-	TXbuff_MAN[0] = TIPO;
-	TXbuff_MAN[1] = DIR;
-	TXbuff_MAN[2] = POS;
-	TXbuff_MAN[3] = PULSE;
-
-	Master.write(manipulador_address, TXbuff_MAN, TX_MSG_SIZE_MAN);
-
-  }
-
-  delay(5);
+*/
 }
+

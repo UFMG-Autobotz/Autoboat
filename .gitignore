@@ -1,6 +1,0 @@
-# Ignore build and devel folders on worskpace
-# They are binaries built from src via catkin_make
-
-autoboat_ws/build/
-autoboat_ws/devel/
-

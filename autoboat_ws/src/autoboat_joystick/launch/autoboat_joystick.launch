@@ -1,0 +1,12 @@
+<launch>
+
+	<!-- joy node -->
+		<node respawn="true" pkg="joy" type="joy_node" name="boat_joy" >
+			<param name="dev" type="string" value="/dev/input/js0" />
+			<param name="deadzone" value="0.01" />
+		</node>
+
+	<!-- nodo autoboat_joystick  -->
+		<node pkg="autoboat_joystick" type="autoboat_joystick" name="joystick"/>
+
+</launch>
