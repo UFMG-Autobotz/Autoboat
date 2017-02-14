@@ -39,7 +39,7 @@
 
 #define buf_len 150
 
-char buf[buf_len];
+char buf[buf_len+1];
 String msg_in, msg_out = String(M_ARD) + INF_MSG ID_ARDUINO, divmsg = String(DIV_MSG);
 
 enum LED_cor {laranja, azul, verde};
@@ -84,7 +84,7 @@ void envia_bateria(int i, int v)
 
 void confirma_envio()
 {
-  Serial.print(msg_out + END_MSG);    // Envia para o PC
+  Serial.println(msg_out + END_MSG);    // Envia para o PC
   
   msg_out = String(M_ARD) + INF_MSG ID_ARDUINO; // Reseta buffer com ID do Arduino
 }
