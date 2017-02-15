@@ -2,8 +2,7 @@
 #include <WireBotzMaster.h> 
 
 // Endereços I²C
-#define base_address 9
-#define mestre_address 10
+#define chassi_address 8
 
 // Definir o tamanho das mensagens de envio (TX) e recebimento (RX)
 #define TX_MSG_SIZE 5
@@ -44,57 +43,54 @@ void setup()
   setupIMU();
   
   Master.begin();  // Inicializa a comunicação do arduíno mestre
-
-  Serial.begin(9600);
+ 
+  Serial.begin(9600);  
 }
 
 void loop()
 {
-	/* DEBUG */ Serial.print("Lendo mensagem do chassi... ");
-  
-	Master.read(base_address, RXbuff, RX_MSG_SIZE); // Recebe informações do escravo
-
-  /* DEBUG */ Serial.println("lido:");
-  /* DEBUG */ Serial.println(String("\tRXbuff[0]: ") + RXbuff[0]);
-  /* DEBUG */ Serial.println(String("\tRXbuff[1]: ") + RXbuff[1]);
-  /* DEBUG */ Serial.println(String("\tRXbuff[2]: ") + RXbuff[2]);
-  /* DEBUG */ Serial.println(String("\tRXbuff[3]: ") + RXbuff[3]);
-  /* DEBUG */ Serial.println(String("\tRXbuff[4]: ") + RXbuff[4] + '\n');
+	Master.read(chassi_address, RXbuff, RX_MSG_SIZE); // Recebe informações do escravo
 
   if(!ligado)                                         // Executa apenas uma vez, para ligar o robô
     if(RXbuff[0] == interf_LiPO && RXbuff[1] == HIGH) // Verifica se o botão foi pressionado
       ligado = true;
     else
+    {
+      /* DEBUG */ Serial.println("Aperte o botão.");
       return;
-
-  /* DEBUG */ Serial.println("Conseguiu passar da verificação do botão!\n");
+    }
+    
+  /* DEBUG */ Serial.println("Mensagem do chassi (vinda");
   
   switch(RXbuff[0]) // Confere o tipo da mensagem recebida
   {
   case US_frente_tras:
     ultrassom[0] = word(RXbuff[1], RXbuff[2]);  // Frente
     ultrassom[1] = word(RXbuff[3], RXbuff[4]);  // Trás
-    /* DEBUG */ Serial.println("Mensagem lida veio do ultrassom (frente, trás)\n");
+    /* DEBUG */ Serial.println("do ultrassom frente/trás):");
     break;    
 
   case US_esq_dir:
     ultrassom[2] = word(RXbuff[1], RXbuff[2]);  // Esquerda
     ultrassom[3] = word(RXbuff[3], RXbuff[4]);  // Direita
-    /* DEBUG */ Serial.println("Mensagem lida veio do ultrassom (esquerda, direita)\n");
+    /* DEBUG */ Serial.println("do ultrassom esquerda/direita):");
     break;
 
   case interf_LiPO:
     estado_botao = RXbuff[1];
     lipo_i = RXbuff[2];
     lipo_v = RXbuff[3];
-    /* DEBUG */ Serial.println("Mensagem lida veio da interface e lipo\n");
+    /* DEBUG */ Serial.println("da interface e lipo):");
   }
 
-  /* DEBUG */ Serial.print("Computando informações da IMU... ");
+  /* DEBUG */ Serial.println(String("\tRX[0]: ") + RXbuff[0]);
+  /* DEBUG */ Serial.println(String("\tRX[1]: ") + RXbuff[1]);
+  /* DEBUG */ Serial.println(String("\tRX[2]: ") + RXbuff[2]);
+  /* DEBUG */ Serial.println(String("\tRX[3]: ") + RXbuff[3]);
+  /* DEBUG */ Serial.println(String("\tRX[4]: ") + RXbuff[4] + '\n');
+
   loopIMU();
-  /* DEBUG */ Serial.print("Pronto!\nComputando informações do manipulador... ");
   atualiza_info_manip();
-  /* DEBUG */ Serial.print("Pronto!\nPreparando mensagens para o envio... ");
 
   envia_sensores  (leitura_sensor_dentro, leitura_sensor_fora);
   envia_steppers  (passo_atual_base, passo_atual_caracol);
@@ -103,14 +99,15 @@ void loop()
   envia_botao     (estado_botao);
   envia_bateria   (lipo_i, lipo_v);
 
-  /* DEBUG */ Serial.println("Pronto!\n\nAs mensagens enviadas para o serial foram as seguintes:\n");
+  /* DEBUG */ Serial.println("Enviado para o serial:");
   confirma_envio();
-  /* DEBUG */ Serial.println("\nPronto para rodar o próximo loop.\n");
+  
+  /* DEBUG */ Serial.println("*******************************\n");
 
   delay(2);
 }
 
-void comando_prop(float vel_esq, float vel_dir, float ang_esq, float ang_dir)
+void comando_prop(int vel_esq, int vel_dir, int ang_esq, int ang_dir)
 {
   TXbuff[0] = prop;  // Indica que a mensagem se destina aos propulsores
   TXbuff[1] = vel_esq;
@@ -118,14 +115,14 @@ void comando_prop(float vel_esq, float vel_dir, float ang_esq, float ang_dir)
   TXbuff[3] = vel_dir;
   TXbuff[4] = ang_dir;
   
-  Master.write(base_address, TXbuff, TX_MSG_SIZE);
+  /* DEBUG */ Serial.println("Recebeu mensagem do serial para a propulsão, enviou pro I²C:");
+  /* DEBUG */ Serial.println(String("\tTX[0]: ") + TXbuff[0]);
+  /* DEBUG */ Serial.println(String("\tTX[1]: ") + TXbuff[1]);
+  /* DEBUG */ Serial.println(String("\tTX[2]: ") + TXbuff[2]);
+  /* DEBUG */ Serial.println(String("\tTX[3]: ") + TXbuff[3]);
+  /* DEBUG */ Serial.println(String("\tTX[4]: ") + TXbuff[4] + '\n');
 
-  /* DEBUG */ Serial.println("Recebeu mensagem para a propulsão, enviou pro I²C:");
-  /* DEBUG */ Serial.println(String("\tTXbuff[0]: ") + TXbuff[0]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[1]: ") + TXbuff[1]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[2]: ") + TXbuff[2]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[3]: ") + TXbuff[3]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[4]: ") + TXbuff[4] + '\n');
+  Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
 }
 
 void comando_leds(LED_cor cor, bool estado)
@@ -137,12 +134,12 @@ void comando_leds(LED_cor cor, bool estado)
   TXbuff[2] = estado_led[azul];
   TXbuff[3] = estado_led[verde];
 
-  Master.write(base_address, TXbuff, TX_MSG_SIZE);
+  Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
 
-  /* DEBUG */ Serial.println("Recebeu mensagem para a placa de interface, enviou pro I²C:");
-  /* DEBUG */ Serial.println(String("\tTXbuff[0]: ") + TXbuff[0]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[1]: ") + TXbuff[1]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[2]: ") + TXbuff[2]);
-  /* DEBUG */ Serial.println(String("\tTXbuff[3]: ") + TXbuff[3] + '\n');
+  /* DEBUG */ Serial.println("Recebeu mensagem do serial para a placa de interface, enviou pro I²C:");
+  /* DEBUG */ Serial.println(String("\tTX[0]: ") + TXbuff[0]);
+  /* DEBUG */ Serial.println(String("\tTX[1]: ") + TXbuff[1]);
+  /* DEBUG */ Serial.println(String("\tTX[2]: ") + TXbuff[2]);
+  /* DEBUG */ Serial.println(String("\tTX[3]: ") + TXbuff[3] + '\n');
 }
 

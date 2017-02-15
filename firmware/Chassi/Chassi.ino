@@ -6,7 +6,7 @@
 //###########################################
 //#######Define parametros do I2C############
 //###########################################
-#define slave_address 8
+#define chassi_address 8
 #define TX_MSG_SIZE 5
 #define RX_MSG_SIZE 5 
 
@@ -29,7 +29,6 @@ const int LED3 =  8;
 //pinos da propulsao
 const int DIRR = 6;
 const int PWMR = 5;
-
 const int DIRL = 10;
 const int PWML = 9;
 
@@ -73,10 +72,10 @@ uint16_t ultrassom[4];
 
 void setup() {
     
-    Serial.begin(9600);
+    /* DEBUG */ Serial.begin(9600);
 
     //setup da comunicaço I2C com o mestre
-    Slave.begin(slave_address);
+    Slave.begin(chassi_address);
     Slave.setRXBuffer(RXBuff, RX_MSG_SIZE);
     Slave.setTXBuffer(TXBuff, TX_MSG_SIZE);
     
@@ -85,6 +84,9 @@ void setup() {
     MotorL.attach(PWML);
     ServoR.attach(DIRR);
     ServoL.attach(DIRL);
+
+    MotorR.write(0); 
+    MotorL.write(0);
     
     pinMode(LED1,OUTPUT);
     pinMode(LED2,OUTPUT);
@@ -93,7 +95,7 @@ void setup() {
 }
 
 void loop() {
-
+    
     //Le o botão da placa de interface
     bool estado_botao = digitalRead(SW1);
     
@@ -109,16 +111,21 @@ void loop() {
         
     //Recebe mensagens do mestre
     if( Slave.newMessage() ){
-            
+
+        /* DEBUG */ Serial.print("Mensagem do mestre para a ");
+
         switch(RXBuff[0])
         {
         case prop:
-        
-            PWML_valor = RXBuff[1];
+            /* DEBUG */ Serial.println("Propulsão:");
+            
+            /* DEBUG */ PWML_valor = 30; //\\
+            PWML_valor = RXBuff[1];               /* SUPERDEBUG */ Serial.println("Essa linha será compilada?");
             DIRL_valor = RXBuff[2];
-            PWMR_valor = RXBuff[3];
+            /* DEBUG */ PWMR_valor = 30; //\\
+            PWMR_valor = RXBuff[3];               /* SUPERDEBUG */ Serial.println("Essa linha será compilada?");
             DIRR_valor = RXBuff[4];
-
+                 
             //Outputa o valor da direcao recebida do mestre
             ServoL.write(DIRL_valor);  
             ServoR.write(DIRR_valor);  
@@ -126,21 +133,29 @@ void loop() {
             //Outputa o valor da velocidade recebida do mestre        
             MotorR.writeMicroseconds( map(PWMR_valor, 0, 255, 700, 2000) ); 
             MotorL.writeMicroseconds( map(PWML_valor, 0, 255, 700, 2000) );
-            
             break;
 
         case interface:
-        
-            LED[1] = RXBuff[1];
-            LED[2] = RXBuff[2];
-            LED[3] = RXBuff[3];
+            /* DEBUG */ Serial.println("Interface:");
+            
+            LED[0] = RXBuff[1];
+            LED[1] = RXBuff[2];
+            LED[2] = RXBuff[3];
 
             //Imprime nos leds o estado enviado pelo mestre
-            digitalWrite( LED1, LED[1] );
-            digitalWrite( LED2, LED[2] );
-            digitalWrite( LED3, LED[3] );
+            digitalWrite( LED1, LED[0] );
+            digitalWrite( LED2, LED[1] );
+            digitalWrite( LED3, LED[2] );
         }
+
+        /* DEBUG */ Serial.println(String("\tRX[0]: ") + RXBuff[0]);
+        /* DEBUG */ Serial.println(String("\tRX[1]: ") + RXBuff[1]);
+        /* DEBUG */ Serial.println(String("\tRX[2]: ") + RXBuff[2]);
+        /* DEBUG */ Serial.println(String("\tRX[3]: ") + RXBuff[3]);
+        /* DEBUG */ Serial.println(String("\tRX[4]: ") + RXBuff[4] + '\n');
     }
+
+    /* DEBUG */ Serial.println(String("Mestre já pediu informação ") + Slave.getTXCnt() + " vezes.\nEnviando mensagem relativa a ");
 
     // Envia mensagens para o mestre
     switch(Slave.getTXCnt() % 3)
@@ -151,6 +166,13 @@ void loop() {
         TXBuff[2] = lowByte (ultrassom[0]);
         TXBuff[3] = highByte(ultrassom[1]);
         TXBuff[4] = lowByte (ultrassom[1]);
+        
+        /* DEBUG */ Serial.println("Ultrassom frente/trás:");
+        /* DEBUG */ Serial.println(String("\tTX[0]: ") + TXBuff[0]);
+        /* DEBUG */ Serial.println(String("\tTX[1]: ") + TXBuff[1]);
+        /* DEBUG */ Serial.println(String("\tTX[2]: ") + TXBuff[2]);
+        /* DEBUG */ Serial.println(String("\tTX[3]: ") + TXBuff[3]);
+        /* DEBUG */ Serial.println(String("\tTX[4]: ") + TXBuff[4] + '\n');
         break;
         
     case 1:
@@ -159,6 +181,13 @@ void loop() {
         TXBuff[2] = lowByte (ultrassom[2]);
         TXBuff[3] = highByte(ultrassom[3]);
         TXBuff[4] = lowByte (ultrassom[3]);
+
+        /* DEBUG */ Serial.println("Ultrassom esquerda/direita:");
+        /* DEBUG */ Serial.println(String("\tTX[0]: ") + TXBuff[0]);
+        /* DEBUG */ Serial.println(String("\tTX[1]: ") + TXBuff[1]);
+        /* DEBUG */ Serial.println(String("\tTX[2]: ") + TXBuff[2]);
+        /* DEBUG */ Serial.println(String("\tTX[3]: ") + TXBuff[3]);
+        /* DEBUG */ Serial.println(String("\tTX[4]: ") + TXBuff[4] + '\n');
         break;
 
     case 2:
@@ -166,5 +195,13 @@ void loop() {
         TXBuff[1] = estado_botao;
         TXBuff[2] = corrente;
         TXBuff[3] = tensao;
+
+        /* DEBUG */ Serial.println("Interface e LiPO:");
+        /* DEBUG */ Serial.println(String("\tTX[0]: ") + TXBuff[0]);
+        /* DEBUG */ Serial.println(String("\tTX[1]: ") + TXBuff[1]);
+        /* DEBUG */ Serial.println(String("\tTX[2]: ") + TXBuff[2]);
+        /* DEBUG */ Serial.println(String("\tTX[3]: ") + TXBuff[3] + '\n');
     }
+
+    /* DEBUG */ Serial.println("*******************************\n");
 }

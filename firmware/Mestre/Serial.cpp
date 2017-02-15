@@ -37,7 +37,7 @@
 #define M_U    21
 #define M_Vbat 22
 
-#define buf_len 150
+#define buf_len 100
 
 char buf[buf_len+1];
 String msg_in, msg_out = String(M_ARD) + INF_MSG ID_ARDUINO, divmsg = String(DIV_MSG);
@@ -45,7 +45,7 @@ String msg_in, msg_out = String(M_ARD) + INF_MSG ID_ARDUINO, divmsg = String(DIV
 enum LED_cor {laranja, azul, verde};
 
 void comando_garra(bool),
-     comando_prop(float,float,float,float),
+     comando_prop(int,int,int,int),
      comando_base(int,float,int),
      comando_caracol(int,float,int),
      comando_leds(LED_cor,bool);
@@ -103,10 +103,7 @@ void serialEvent()  // Recebe as mensagens do computador
   
   if(msg_in == ID_msg) // Caso o PC esteja perguntando o ID deste Arduino
   {
-    Serial.print(M_ARD);
-    Serial.print(INF_MSG);
-    Serial.print(ID_ARDUINO);
-    Serial.println(END_MSG);
+    Serial.println(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
     return;
   }
   else if(msg_in != Data_msg)  // Se não for ID_msg nem Data_msg, algo errado não está certo
@@ -116,10 +113,7 @@ void serialEvent()  // Recebe as mensagens do computador
   
   if(msg_in != ID_ARDUINO)   // Se o Arduino de destino não for este
   {
-    Serial.print(M_ARD);
-    Serial.print(INF_MSG);
-    Serial.print(ID_ARDUINO);
-    Serial.println(END_MSG);
+    Serial.println(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
     return;
   }
 
@@ -132,8 +126,8 @@ void serialEvent()  // Recebe as mensagens do computador
       break;
     
     case M_P:   // Propulsores
-      comando_prop(atof(strtok(NULL,VEC_MSG)), atof(strtok(NULL,VEC_MSG)),
-                   atof(strtok(NULL,VEC_MSG)), atof(strtok(NULL,DIV_MSG END_MSG)));
+      comando_prop(atoi(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,VEC_MSG)),
+                   atoi(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
        
     case M_SB:  // Stepper da base
