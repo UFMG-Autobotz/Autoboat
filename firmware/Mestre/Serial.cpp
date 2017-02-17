@@ -3,7 +3,7 @@
 #define FINAL_CHAR '!'
 #define SPLIT_CHAR '?'
 
-#define ID_ARDUINO "TESTE"
+#define ID_ARDUINO "MAST"
 
 #define Data_msg "Dt_msg"
 #define ID_msg "Id_msg"
@@ -39,7 +39,7 @@
 
 #define buf_len 100
 
-char buf[buf_len+1];
+char buf[buf_len+1], *tok[4];
 String msg_in, msg_out = String(M_ARD) + INF_MSG ID_ARDUINO, divmsg = String(DIV_MSG);
 
 enum LED_cor {laranja, azul, verde};
@@ -122,32 +122,52 @@ void serialEvent()  // Recebe as mensagens do computador
     switch(msg_in.toInt())
     {
     case M_G:   // Garra
-      comando_garra(atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_garra(atoi(tok[0]));
       break;
     
     case M_P:   // Propulsores
-      comando_prop(atoi(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,VEC_MSG)),
-                   atoi(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,VEC_MSG);
+      tok[1] = strtok(NULL,VEC_MSG);
+      tok[2] = strtok(NULL,VEC_MSG);
+      tok[3] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_prop(atoi(tok[0]), atoi(tok[1]), atoi(tok[2]), atoi(tok[3]));
       break;
        
     case M_SB:  // Stepper da base
-      comando_base(atoi(strtok(NULL,VEC_MSG)), atof(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,VEC_MSG);
+      tok[1] = strtok(NULL,VEC_MSG);
+      tok[2] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_base(atoi(tok[0]), atof(tok[1]), atoi(tok[2]));
       break;
     
     case M_SC:  // Stepper do caracol
-      comando_caracol(atoi(strtok(NULL,VEC_MSG)), atof(strtok(NULL,VEC_MSG)), atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,VEC_MSG);
+      tok[1] = strtok(NULL,VEC_MSG);
+      tok[2] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_caracol(atoi(tok[0]), atof(tok[1]), atoi(tok[2]));
       break;
 
     case M_LL:  // LED laranja
-      comando_leds(laranja, atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_leds(laranja, atoi(tok[0]));
       break;
       
     case M_LA:  // LED azul
-      comando_leds(azul, atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_leds(azul, atoi(tok[0]));
       break;
 
     case M_LV:  // LED verde
-      comando_leds(verde, atoi(strtok(NULL,DIV_MSG END_MSG)));
+      tok[0] = strtok(NULL,DIV_MSG END_MSG);
+      
+      comando_leds(verde, atoi(tok[0]));
     }
   }
 }

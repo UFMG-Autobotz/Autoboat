@@ -1,0 +1,11 @@
+# Ignore build and devel folders on worskpace
+# They are binaries built from src via catkin_make
+
+autoboat_ws/build/
+autoboat_ws/devel/
+autoboat_ws/install/
+telemetria/CMakeLists.txt.user
+autoboat_ws/src/interface/CMakeLists.txt.user
+autoboat_ws/src/interface/lib/ros_functions.hpp.autosave
+autoboat_ws/src/interface/src/main.cpp.autosave
+

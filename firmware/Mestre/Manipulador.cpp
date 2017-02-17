@@ -36,9 +36,9 @@ void atualiza_info_manip()
 void comando_garra(bool cmd)
 {
   if(cmd && !estado_garra)      // Se a garra deveria estar aberta mas está fechada
-    garra.mover(255, 1500);     // Abre a garra
+    garra.mover(255, 150000);   // Abre a garra
   else if(!cmd && estado_garra) // Se a garra deveria estar fechada mas está aberta
-    garra.mover(-255, 1500);    // Fecha a garra
+    garra.mover(-255, 150000);  // Fecha a garra
 
   estado_garra = cmd;
 }

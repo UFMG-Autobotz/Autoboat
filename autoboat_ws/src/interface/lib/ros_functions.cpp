@@ -4,15 +4,15 @@ namespace ros_func{
 // ---------------- CALLBACK FUNCTIONs -----------------
 	namespace sub{
 		void base_stepper_cmd(const interface::Stepper_msg& msg){
-			Barco_class::set_base_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
+            Barco_class::set_base_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
 		}
 		
 		void caracol_stepper_cmd(const interface::Stepper_msg& msg){
-			Barco_class::set_caracol_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
+            Barco_class::set_caracol_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
 		}
 		
 		void open(const std_msgs::Bool& msg){
-			Barco_class::set_garra_state(msg.data);
+            Barco_class::set_garra_state(msg.data);
 		}
 		
 		void prop(const interface::Prop_msg& msg){
@@ -22,13 +22,25 @@ namespace ros_func{
 			mot_A[0] = msg.ang_esq.data;
 			mot_A[1] = msg.ang_dir.data;
 			Barco_class::set_mot_vel(mot_V);
-			Barco_class::set_mot_ang(mot_A);
+            Barco_class::set_mot_ang(mot_A);
 		}
+
+        void LED_laranja(const std_msgs::Bool& msg){
+            Barco_class::set_LED_l(msg.data);
+        }
+
+        void LED_azul(const std_msgs::Bool& msg){
+            Barco_class::set_LED_a(msg.data);
+        }
+
+        void LED_verde(const std_msgs::Bool& msg){
+            Barco_class::set_LED_v(msg.data);
+        }
 	}
 
 // ---------------- PUBLISH FUNCTIONs -----------------
 	namespace pub{
-		
+/*
 		void LED_laranja(ros::Publisher pubLL){
 			static std_msgs::Bool msg;
 			msg.data = Barco_class::get_LED_l();
@@ -46,7 +58,7 @@ namespace ros_func{
 			msg.data = Barco_class::get_LED_v();
 			pubLV.publish(msg);
 		}
-		
+*/
 		void button(ros::Publisher pubBU){
 			static std_msgs::Bool msg;
 			msg.data = Barco_class::get_but();

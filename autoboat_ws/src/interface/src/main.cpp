@@ -9,7 +9,10 @@ int main(int argc, char **argv){
 	ros::Subscriber subG = nh.subscribe("/autoboat/garra/open", 1, ros_func::sub::open);
 	ros::Subscriber subP = nh.subscribe("/autoboat/prop", 1, ros_func::sub::prop);
 	ros::Subscriber subSB = nh.subscribe("/autoboat/caracol/base_stepper_cmd", 1, ros_func::sub::base_stepper_cmd);
-	ros::Subscriber subSC = nh.subscribe("/autoboat/caracol/caracol_stepper_cmd", 1, ros_func::sub::caracol_stepper_cmd);
+    ros::Subscriber subSC = nh.subscribe("/autoboat/caracol/caracol_stepper_cmd", 1, ros_func::sub::caracol_stepper_cmd);
+    ros::Subscriber subLA = nh.subscribe("/autoboat/interface/LED_azul", 1, ros_func::sub::caracol_stepper_cmd);
+    ros::Subscriber subLL = nh.subscribe("/autoboat/interface/LED_laranja", 1, ros_func::sub::caracol_stepper_cmd);
+    ros::Subscriber subLV = nh.subscribe("/autoboat/interface/LED_vere", 1, ros_func::sub::caracol_stepper_cmd);
 
 	ros::Publisher pubA = nh.advertise<std_msgs::Float32>("/autoboat/angulo", 1);
 	ros::Publisher pubAB = nh.advertise<std_msgs::Bool>("/autoboat/diagnostics/arduboat_up", 1);
@@ -24,24 +27,26 @@ int main(int argc, char **argv){
 	ros::Publisher pubGI = nh.advertise<std_msgs::Bool>("/autoboat/garra/IR_in", 1);
 	ros::Publisher pubGO = nh.advertise<std_msgs::Bool>("/autoboat/garra/IR_out", 1);
 	ros::Publisher pubIbat = nh.advertise<std_msgs::Float32>("/autoboat/power/i_total", 1);
+/*
 	ros::Publisher pubLA = nh.advertise<std_msgs::Bool>("/autoboat/interface/LED_azul", 1);
 	ros::Publisher pubLL = nh.advertise<std_msgs::Bool>("/autoboat/interface/LED_laranja", 1);
 	ros::Publisher pubLV = nh.advertise<std_msgs::Bool>("/autoboat/interface/LED_verde", 1);
+*/
 	ros::Publisher pubU = nh.advertise<std_msgs::Float32MultiArray>("/autoboat/ultrassons", 1);
 	ros::Publisher pubVbat = nh.advertise<std_msgs::Float32>("/autoboat/power/v_bat", 1);
 
 	ros::Rate loop_rate(.5);
 	Barco_class::init_barco();
 
-	std::string serial_filename = "/home/rodrigo/Dropbox/Autobotz/autobotz_ws/src/interface/configs/Serial_ports.txt";
-	std::string msgs_filename = "/home/rodrigo/Dropbox/Autobotz/autobotz_ws/src/interface/configs/ID_MSGS.txt";
-	std::string arduinos_filename = "/home/rodrigo/Dropbox/Autobotz/autobotz_ws/src/interface/configs/Arduinos_teste.txt";
+    std::string serial_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/Serial_ports.txt";
+    std::string msgs_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/ID_MSGS.txt";
+    std::string arduinos_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/Arduinos.txt";
 
 	std::vector<utils::Ports> p_vec = utils::get_port_list(serial_filename);
 	std::vector<utils::Dict> m_vec = utils::get_msg_list(msgs_filename), a_vec = utils::get_arduino_list(arduinos_filename);
 
 	std::string id;
-	std::vector <std::string> smid, rmid;
+    std::vector <std::string> smid, rmid;
 
 	for (int i = 0; i < p_vec.size(); ++i){
 		std::cout << p_vec[i].n << " - " <<p_vec[i].nome << std::endl;
@@ -135,7 +140,7 @@ int main(int argc, char **argv){
 						d_con.key = "disconnected";
 						d_con.value = utils::numTostr(con_t);
 						connection_log[i].push_back(d_con);
-						Barco_class::init_barco();
+                        //Barco_class::init_barco();
 					}
 				}
 			}

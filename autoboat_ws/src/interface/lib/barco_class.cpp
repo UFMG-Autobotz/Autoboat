@@ -14,8 +14,8 @@ void Barco_class::init_barco(){
 	mot_ang.clear();
 	mot_vel.clear();
 	ultrassom.push_back(0); ultrassom.push_back(1); ultrassom.push_back(2); ultrassom.push_back(3);
-	mot_ang.push_back(0); mot_ang.push_back(0);
-	mot_vel.push_back(0); mot_vel.push_back(1);
+    mot_ang.push_back(0); mot_ang.push_back(0);
+    mot_vel.push_back(30); mot_vel.push_back(30);
 	v_bateria = 0;
 	i_tot = 1;
 	ang_atual = 2;
@@ -122,10 +122,13 @@ void Barco_class::send_arduinos_msgs(){
 					case M_Ibat:
 						break;
 					case M_LA:
+                        s += utils::numTostr((int) Barco_class::get_LED_a());
 						break;
 					case M_LL:
+                        s += utils::numTostr((int) Barco_class::get_LED_l());
 						break;
 					case M_LV:
+                        s += utils::numTostr((int) Barco_class::get_LED_v());
 						break;
 					case M_P:
 						s += utils::numTostr(Barco_class::get_mot_vel()[0]) + ":";
@@ -207,15 +210,17 @@ void Barco_class::receive_arduinos_msgs(){
 					case M_Ibat:
 						Barco_class::set_i_tot(atof(parsed_msg[j].value.c_str()));
 						break;
-					case M_LA:
-						Barco_class::set_LED_a(parsed_msg[j].value != "0");
+/*
+                    case M_LA:
+                        Barco_class::set_LED_a(parsed_msg[j].value != "0");
 						break;
 					case M_LL:
-						Barco_class::set_LED_l(parsed_msg[j].value != "0");
+                        Barco_class::set_LED_l(parsed_msg[j].value != "0");
 						break;
 					case M_LV:
-						Barco_class::set_LED_v(parsed_msg[j].value != "0");
-						break;
+                        Barco_class::set_LED_v(parsed_msg[j].value != "0");
+                        break;
+*/
 					case M_P:
 						break;
 					case M_SB:

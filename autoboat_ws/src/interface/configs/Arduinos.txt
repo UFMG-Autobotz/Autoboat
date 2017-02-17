@@ -17,3 +17,10 @@ add_send_message = M_SC
 add_send_message = M_G
 add_send_message = M_P
 
+Arduino_ID = MASTECTOMIA
+add_receive_message = M_BC
+add_send_message = M_LL
+
+Arduino_ID = MASTIGAR
+add_receive_message = M_BC
+add_send_message = M_LL
