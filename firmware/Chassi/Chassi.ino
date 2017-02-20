@@ -22,9 +22,9 @@ enum tipo_RX {prop = 1, interface};
 //###########################################
 //pinos da placa de interface
 const int SW1 = 7; 
-const int LED1 =  13;
+const int LED1 =  8;
 const int LED2 =  12;
-const int LED3 =  8;
+const int LED3 =  13;
 
 //pinos da propulsao
 const int DIRR = 6;

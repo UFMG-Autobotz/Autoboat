@@ -45,10 +45,12 @@ String msg_in, msg_out = String(M_ARD) + INF_MSG ID_ARDUINO, divmsg = String(DIV
 enum LED_cor {laranja, azul, verde};
 
 void comando_garra(bool),
-     comando_prop(int,int,int,int),
+     comando_prop(float,float,float,float),
      comando_base(int,float,int),
      comando_caracol(int,float,int),
      comando_leds(LED_cor,bool);
+     
+void msg_recebida(), decodifica_msg();
      
 void envia_sensores(int dentro, int fora)
 {
@@ -61,10 +63,12 @@ void envia_steppers(int atual_base, int atual_caracol)
   msg_out += divmsg + M_BC + INF_MSG + atual_base;
   msg_out += divmsg + M_CC + INF_MSG + atual_caracol;
 }
+
 void envia_ultrassons(uint16_t u[4])
 {
   msg_out += divmsg + M_U + INF_MSG + u[0] + VEC_MSG + u[1] + VEC_MSG + u[2] + VEC_MSG + u[3];
 }
+
 void envia_imu(float ang_x, float ang_y, float ang_z)
 {
 //msg_out += divmsg + M_A + INF_MSG + ang_x + VEC_MSG + ang_y + VEC_MSG + ang_z;
@@ -89,15 +93,29 @@ void confirma_envio()
   msg_out = String(M_ARD) + INF_MSG ID_ARDUINO; // Reseta buffer com ID do Arduino
 }
 
-void serialEvent()  // Recebe as mensagens do computador
+void serialEvent()
 {
-  int i = 0;
+  static int i = 0;
   
-  // Enche buffer
-  while(Serial.available() && i < buf_len && (buf[i] = Serial.read()) != FINAL_CHAR)
-    i++;    
+  while(Serial.available())
+  {
+    if(i >= buf_len)
+      i = 0;
+    
+    if((buf[i++] = Serial.read()) == FINAL_CHAR)
+    {
+      while(Serial.available())
+        Serial.read();    // Ignora qualquer terminação que tiver vindo após FINAL_CHAR
 
-  Serial.flush(); // Ignora o que tiver vindo após FINAL_CHAR
+      i = 0;
+      decodifica_msg();
+    }
+  }
+}
+
+void decodifica_msg()
+{  
+  msg_recebida();
     
   msg_in = String(strtok(buf,DIV_MSG));
   
@@ -121,10 +139,8 @@ void serialEvent()  // Recebe as mensagens do computador
   {
     switch(msg_in.toInt())
     {
-    case M_G:   // Garra
-      tok[0] = strtok(NULL,DIV_MSG END_MSG);
-      
-      comando_garra(atoi(tok[0]));
+    case M_G:   // Garra      
+      comando_garra(atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
     
     case M_P:   // Propulsores
@@ -133,7 +149,7 @@ void serialEvent()  // Recebe as mensagens do computador
       tok[2] = strtok(NULL,VEC_MSG);
       tok[3] = strtok(NULL,DIV_MSG END_MSG);
       
-      comando_prop(atoi(tok[0]), atoi(tok[1]), atoi(tok[2]), atoi(tok[3]));
+      comando_prop(atof(tok[0]), atof(tok[1]), atof(tok[2]), atof(tok[3]));
       break;
        
     case M_SB:  // Stepper da base
@@ -152,22 +168,16 @@ void serialEvent()  // Recebe as mensagens do computador
       comando_caracol(atoi(tok[0]), atof(tok[1]), atoi(tok[2]));
       break;
 
-    case M_LL:  // LED laranja
-      tok[0] = strtok(NULL,DIV_MSG END_MSG);
-      
-      comando_leds(laranja, atoi(tok[0]));
+    case M_LL:  // LED laranja      
+      comando_leds(laranja, atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
       
     case M_LA:  // LED azul
-      tok[0] = strtok(NULL,DIV_MSG END_MSG);
-      
-      comando_leds(azul, atoi(tok[0]));
+      comando_leds(azul, atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
 
     case M_LV:  // LED verde
-      tok[0] = strtok(NULL,DIV_MSG END_MSG);
-      
-      comando_leds(verde, atoi(tok[0]));
+      comando_leds(verde, atoi(strtok(NULL,DIV_MSG END_MSG)));
     }
   }
 }

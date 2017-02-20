@@ -37,6 +37,7 @@ void envia_sensores(int dentro, int fora),
      envia_botao(int estado),
      envia_bateria(int i, int v),
      confirma_envio();
+bool pronto_para_envio;
 
 void setup()
 {       
@@ -78,18 +79,23 @@ void loop()
   loopIMU();
   atualiza_info_manip();
 
-  envia_sensores  (leitura_sensor_dentro, leitura_sensor_fora);
-  envia_steppers  (passo_atual_base, passo_atual_caracol);
-  envia_ultrassons(ultrassom);
-  envia_imu       (angle_x, angle_y, angle_z);
-  envia_botao     (estado_botao);
-  envia_bateria   (lipo_i, lipo_v);
+  if(pronto_para_envio)
+  {
+    envia_sensores  (leitura_sensor_dentro, leitura_sensor_fora);
+    envia_steppers  (passo_atual_base, passo_atual_caracol);
+    envia_ultrassons(ultrassom);
+    envia_imu       (angle_x, angle_y, angle_z);
+    envia_botao     (estado_botao);
+    envia_bateria   (lipo_i, lipo_v);
+    confirma_envio();
 
-  confirma_envio();
+    pronto_para_envio = false;
+  }
+  
   delay(2);
 }
 
-void comando_prop(int vel_esq, int vel_dir, int ang_esq, int ang_dir)
+void comando_prop(float vel_esq, float vel_dir, float ang_esq, float ang_dir)
 {
   TXbuff[0] = prop;  // Indica que a mensagem se destina aos propulsores
   TXbuff[1] = vel_esq;
@@ -110,5 +116,10 @@ void comando_leds(LED_cor cor, bool estado)
   TXbuff[3] = estado_led[verde];
 
   Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
+}
+
+void msg_recebida()
+{
+  pronto_para_envio = true;
 }
 

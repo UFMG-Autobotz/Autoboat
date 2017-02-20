@@ -81,7 +81,8 @@ void Barco_class::send_arduinos_msgs(){
 			std::string s = Data_msg;
 			s+= DIV_MSG + arduinos[i].get_ID();
 			for (int j = 0; j < s_m_ID.size(); ++j){
-				s += DIV_MSG + s_m_ID[j] + INF_MSG;
+                //s += DIV_MSG + s_m_ID[j] + INF_MSG;
+                s += DIV_MSG + get_msg_ID(s_m_ID[j]) + INF_MSG;
 				switch(atoi(get_msg_ID(s_m_ID[j]).c_str() ) ){
 					case M_A:
 						break;

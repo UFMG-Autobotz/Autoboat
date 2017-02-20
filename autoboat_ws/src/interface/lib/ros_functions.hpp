@@ -17,6 +17,9 @@ namespace ros_func{
 		void caracol_stepper_cmd(const interface::Stepper_msg& msg);
 		void open(const std_msgs::Bool& msg);
 		void prop(const interface::Prop_msg& msg);
+        void LED_laranja(const std_msgs::Bool& msg);
+        void LED_azul(const std_msgs::Bool& msg);
+        void LED_verde(const std_msgs::Bool& msg);
 	}
 	namespace pub{
 		void LED_laranja(ros::Publisher pubLL);
