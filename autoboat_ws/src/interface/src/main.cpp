@@ -12,7 +12,7 @@ int main(int argc, char **argv){
     ros::Subscriber subSC = nh.subscribe("/autoboat/caracol/caracol_stepper_cmd", 1, ros_func::sub::caracol_stepper_cmd);
     ros::Subscriber subLA = nh.subscribe("/autoboat/interface/LED_azul", 1, ros_func::sub::LED_azul);
     ros::Subscriber subLL = nh.subscribe("/autoboat/interface/LED_laranja", 1, ros_func::sub::LED_laranja);
-    ros::Subscriber subLV = nh.subscribe("/autoboat/interface/LED_vere", 1, ros_func::sub::LED_verde);
+    ros::Subscriber subLV = nh.subscribe("/autoboat/interface/LED_verde", 1, ros_func::sub::LED_verde);
 
 	ros::Publisher pubA = nh.advertise<std_msgs::Float32>("/autoboat/angulo", 1);
 	ros::Publisher pubAB = nh.advertise<std_msgs::Bool>("/autoboat/diagnostics/arduboat_up", 1);

@@ -49,6 +49,9 @@ bool TeleopNode::init()
     caracol_pub = n.advertise <autoboat_msgs::Stepper_msg>("autoboat/caracol/caracol_stepper_cmd",20);
     prop_pub    = n.advertise <autoboat_msgs::Prop_msg>   ("autoboat/prop",35);
     garra_pub   = n.advertise <std_msgs::Bool>            ("autoboat/garra/open",8);
+    led_A_pub   = n.advertise <std_msgs::Bool>            ("autoboat/interface/LED_azul",5);
+    led_L_pub   = n.advertise <std_msgs::Bool>            ("autoboat/interface/LED_laranja",5);
+    led_V_pub   = n.advertise <std_msgs::Bool>            ("autoboat/interface/LED_verde",5);
 
     start();    // Inicializa thread e chama run()
 
@@ -105,6 +108,20 @@ void TeleopNode::comando_caracol()
     msg.dir.data = caracol_dir;
 
     caracol_pub.publish(msg);
+}
+
+void TeleopNode::comando_leds()
+{
+    std_msgs::Bool msg;
+
+    msg.data = estado_led_azul;
+    led_A_pub.publish(msg);
+
+    msg.data = estado_led_verde;
+    led_V_pub.publish(msg);
+
+    msg.data = estado_led_laranja;
+    led_L_pub.publish(msg);
 }
 
 }  // namespace telemetria

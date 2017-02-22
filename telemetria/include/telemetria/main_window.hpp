@@ -75,6 +75,11 @@ public Q_SLOTS:
     void on_bot_garra_clicked();
     void on_bot_panico_clicked();
 
+    // LEDs
+    void on_led_azul_clicked(bool estado);
+    void on_led_laranja_clicked(bool estado);
+    void on_led_verde_clicked(bool estado);
+
     // Mostradores da aba de monitoramento
     void mostra_prop();
     void mostra_base();

@@ -27,10 +27,10 @@ const int LED2 =  12;
 const int LED3 =  13;
 
 //pinos da propulsao
-const int DIRR = 6;
-const int PWMR = 5;
-const int DIRL = 10;
-const int PWML = 9;
+const int DIRR = 10;
+const int PWMR = 9;
+const int DIRL = 6;
+const int PWML = 5;
 
 //pinagem ultrassons
 const int U1 = 4;
@@ -90,9 +90,17 @@ void setup() {
     pinMode(LED2,OUTPUT);
     pinMode(LED3,OUTPUT);
     pinMode(SW1, INPUT);
+
+    /* TIMING */ Serial.begin(9600);
 }
 
+    /* TIMING */ unsigned long t1, t2;
+
 void loop() {
+
+    /* TIMING */ t2 = t1;
+    /* TIMING */ t1 = micros();
+    /* TIMING */ Serial.println(t1 - t2);
     
     //Le o botão da placa de interface
     bool estado_botao = digitalRead(SW1);
@@ -106,18 +114,19 @@ void loop() {
     // Lê as informações da bateria (falta definir o intervalo de valores, o medidor ainda não existe)
     int tensao = analogRead(bat_v);
     int corrente = analogRead(bat_i);
-        
+
     //Recebe mensagens do mestre
     if( Slave.newMessage() ){
 
         switch(RXBuff[0])
         {
         case prop:
+        
             PWML_valor = RXBuff[1];               
-            DIRL_valor = RXBuff[2];
+            DIRL_valor = constrain(180 - RXBuff[2], 0, 178);
             PWMR_valor = RXBuff[3];               
-            DIRR_valor = RXBuff[4];
-                 
+            DIRR_valor = constrain(RXBuff[4], 0, 178);
+
             //Outputa o valor da direcao recebida do mestre
             ServoL.write(DIRL_valor);  
             ServoR.write(DIRR_valor);  

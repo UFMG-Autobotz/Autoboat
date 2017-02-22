@@ -20,7 +20,7 @@ void Barco_class::init_barco(){
 	i_tot = 1;
 	ang_atual = 2;
 	tem_bloco = garra_state = LED_l = false;
-	LED_a = LED_v = but =true;
+    LED_a = LED_v = but = false;
 	base.setpoint = 1;
 	base.speed = 0;
 	base.dir = direita;

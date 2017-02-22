@@ -142,24 +142,24 @@ void decodifica_msg()
     case M_G:   // Garra      
       comando_garra(atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
-    
+
     case M_P:   // Propulsores
       tok[0] = strtok(NULL,VEC_MSG);
       tok[1] = strtok(NULL,VEC_MSG);
       tok[2] = strtok(NULL,VEC_MSG);
       tok[3] = strtok(NULL,DIV_MSG END_MSG);
-      
+
       comando_prop(atof(tok[0]), atof(tok[1]), atof(tok[2]), atof(tok[3]));
       break;
-       
+
     case M_SB:  // Stepper da base
       tok[0] = strtok(NULL,VEC_MSG);
       tok[1] = strtok(NULL,VEC_MSG);
       tok[2] = strtok(NULL,DIV_MSG END_MSG);
-      
+
       comando_base(atoi(tok[0]), atof(tok[1]), atoi(tok[2]));
       break;
-    
+
     case M_SC:  // Stepper do caracol
       tok[0] = strtok(NULL,VEC_MSG);
       tok[1] = strtok(NULL,VEC_MSG);
@@ -171,7 +171,7 @@ void decodifica_msg()
     case M_LL:  // LED laranja      
       comando_leds(laranja, atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;
-      
+
     case M_LA:  // LED azul
       comando_leds(azul, atoi(strtok(NULL,DIV_MSG END_MSG)));
       break;

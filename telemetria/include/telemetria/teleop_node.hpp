@@ -19,7 +19,7 @@ public:
     virtual ~TeleopNode();
 
     // Variáveis alteradas pela aba de teleoperação
-    bool estado_garra;
+    bool estado_garra, estado_led_laranja, estado_led_azul, estado_led_verde;
     int base_vel, base_pos, base_dir, caracol_vel, caracol_pos, caracol_dir;
     float vel_dir, vel_esq, ang_dir, ang_esq;
 
@@ -33,6 +33,7 @@ public:
     void comando_prop();
     void comando_base();
     void comando_caracol();
+    void comando_leds();
 
 Q_SIGNALS:
 
@@ -43,7 +44,7 @@ private:
 	int init_argc;
 	char** init_argv;
 
-    ros::Publisher base_pub, caracol_pub, garra_pub, prop_pub;
+    ros::Publisher base_pub, caracol_pub, garra_pub, prop_pub, led_A_pub, led_L_pub, led_V_pub;
 };
 
 }  // namespace telemetria

@@ -50,6 +50,10 @@ void setup()
 
 void loop()
 {
+	/* TIMING */ t2 = t1;
+  /* TIMING */ t1 = micros();
+  /* TIMING */ Serial.println(t1 - t2);
+	
 	Master.read(chassi_address, RXbuff, RX_MSG_SIZE); // Recebe informações do escravo
 
   if(!ligado)                                         // Executa apenas uma vez, para ligar o robô
@@ -92,6 +96,7 @@ void loop()
     pronto_para_envio = false;
   }
   
+  /*¨TIMING */ //\\
   delay(2);
 }
 
@@ -104,6 +109,7 @@ void comando_prop(float vel_esq, float vel_dir, float ang_esq, float ang_dir)
   TXbuff[4] = ang_dir;
 
   Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
+  delay(1);
 }
 
 void comando_leds(LED_cor cor, bool estado)
@@ -116,6 +122,7 @@ void comando_leds(LED_cor cor, bool estado)
   TXbuff[3] = estado_led[verde];
 
   Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
+  delay(1);
 }
 
 void msg_recebida()

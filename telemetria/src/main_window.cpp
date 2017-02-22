@@ -434,6 +434,53 @@ void MainWindow::caracol_dir()
     teleop.comando_caracol();   // Manda o nó publicar no tópico do caracol
 }
 
+// LEDs
+
+void MainWindow::on_led_azul_clicked(bool estado)
+{
+    teleop.estado_led_azul = estado;
+    teleop.comando_leds();
+
+    QPalette pal = palette();
+
+    if(estado)
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(240,255,220)); // Azul claro
+    else
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(240,255,50)); // Azul escuro
+
+    ui.led_azul->setPalette(pal);
+}
+
+void MainWindow::on_led_laranja_clicked(bool estado)
+{
+    teleop.estado_led_laranja = estado;
+    teleop.comando_leds();
+
+    QPalette pal = palette();
+
+    if(estado)
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(30,255,220)); // Laranja claro
+    else
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(30,255,50)); // Laranja escuro
+
+    ui.led_laranja->setPalette(pal);
+}
+
+void MainWindow::on_led_verde_clicked(bool estado)
+{
+    teleop.estado_led_verde = estado;
+    teleop.comando_leds();
+
+    QPalette pal = palette();
+
+    if(estado)
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(30,255,220)); // Verde claro
+    else
+        pal.setColor(QPalette::WindowText, QColor::fromHsv(30,255,50)); // Verde escuro
+
+    ui.led_verde->setPalette(pal);
+}
+
 // Botões da direção dos propulsores:
 
 void MainWindow::on_bot_esq_clicked()
