@@ -136,10 +136,10 @@ void MainWindow::iniciar_teleop()   // Inicializa a o nó e a aba de teleoperaç
     // Cria objetos para restringir os valores digitados pelo usuário nos paineis de entrada
     valid_base = new QIntValidator(0,48,ui.campo_base);
     valid_caracol = new QIntValidator(0,100,ui.campo_caracol);
-    valid_dir = new QDoubleValidator(0,50,1,ui.campo_dir);
-    valid_esq = new QDoubleValidator(0,50,1,ui.campo_esq);
-    valid_ang = new QDoubleValidator(-.625,.625,3,ui.campo_ang);
-    valid_lin = new QDoubleValidator(-50,50,1,ui.campo_lin);
+    valid_dir = new QDoubleValidator(0,90,1,ui.campo_dir);
+    valid_esq = new QDoubleValidator(0,90,1,ui.campo_esq);
+    valid_ang = new QDoubleValidator(-1.125,1.125,3,ui.campo_ang);
+    valid_lin = new QDoubleValidator(-90,90,1,ui.campo_lin);
 
     // Associa os objetos aos respectivos painéis de entrada
     ui.campo_base->setValidator(valid_base);
@@ -394,13 +394,13 @@ void MainWindow::on_campo_caracol_textChanged(QString qstr)
 
 // Campos numéricos da velocidade dos steppers:
 
-void MainWindow::on_vel_base_valueChanged(int valor)
+void MainWindow::on_vel_base_valueChanged(float valor)
 {
     teleop.base_vel = valor;    // Informa ao nó o novo valor da velocidade da base
     teleop.comando_base();  // Manda o nó publicar no tópico da base
 }
 
-void MainWindow::on_vel_caracol_valueChanged(int valor)
+void MainWindow::on_vel_caracol_valueChanged(float valor)
 {
     teleop.caracol_vel = valor; // Informa ao nó o novo valor da velocidade do caracol
     teleop.comando_caracol();   // Manda o nó publicar no tópico do caracol
@@ -523,6 +523,14 @@ void MainWindow::on_bot_panico_clicked()
     muda_lin_ang(0,0,true);
     ui.campo_base->setText(tr("0"));
     ui.campo_caracol->setText(tr("0"));
+
+    //Apaga os LEDs
+    ui.led_azul->setChecked(true);
+    ui.led_azul->click();
+    ui.led_laranja->setChecked(true);
+    ui.led_laranja->click();
+    ui.led_verde->setChecked(true);
+    ui.led_verde->click();
 
     // Garante que a garra esteja aberta
     teleop.estado_garra = false;

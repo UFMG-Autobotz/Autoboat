@@ -3,7 +3,8 @@
 #ifndef ARDUINO_CLASS_H
 #define ARDUINO_CLASS_H
 
-#define WAIT_TIME_us 2000
+//#define WAIT_TIME_us 70000
+
 #define Data_msg "Dt_msg"
 #define Id_msg "Id_msg"
 // #define Id_msg "60 char messagesssssssssssssss60 char messagesssssssssssssss"//"Id_msg"

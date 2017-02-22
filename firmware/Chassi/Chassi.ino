@@ -90,21 +90,13 @@ void setup() {
     pinMode(LED2,OUTPUT);
     pinMode(LED3,OUTPUT);
     pinMode(SW1, INPUT);
-
-    /* TIMING */ Serial.begin(9600);
 }
-
-    /* TIMING */ unsigned long t1, t2;
 
 void loop() {
 
-    /* TIMING */ t2 = t1;
-    /* TIMING */ t1 = micros();
-    /* TIMING */ Serial.println(t1 - t2);
-    
     //Le o botão da placa de interface
     bool estado_botao = digitalRead(SW1);
-    
+
     //le os ultrassons
     ultrassom[0] = SONAR1.ping_cm();
     ultrassom[1] = SONAR2.ping_cm();
@@ -123,9 +115,9 @@ void loop() {
         case prop:
         
             PWML_valor = RXBuff[1];               
-            DIRL_valor = constrain(180 - RXBuff[2], 0, 178);
+            DIRL_valor = constrain(180 - RXBuff[2], 0, 177);
             PWMR_valor = RXBuff[3];               
-            DIRR_valor = constrain(RXBuff[4], 0, 178);
+            DIRR_valor = constrain(RXBuff[4], 0, 177);
 
             //Outputa o valor da direcao recebida do mestre
             ServoL.write(DIRL_valor);  

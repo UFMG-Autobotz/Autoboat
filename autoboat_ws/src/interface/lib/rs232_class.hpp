@@ -10,7 +10,7 @@
 #define FINAL_CHAR '!'
 // #define SPLIT_CHAR '?'
 // #define MAX_LENGTH 16
-#define send_wait 100
+#define send_wait 1000
 
 #ifndef RS232_CLASS_H
 #define RS232_CLASS_H

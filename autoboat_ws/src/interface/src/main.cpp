@@ -35,12 +35,22 @@ int main(int argc, char **argv){
 	ros::Publisher pubU = nh.advertise<std_msgs::Float32MultiArray>("/autoboat/ultrassons", 1);
 	ros::Publisher pubVbat = nh.advertise<std_msgs::Float32>("/autoboat/power/v_bat", 1);
 
-	ros::Rate loop_rate(.5);
+    //ros::Rate loop_rate(2);
 	Barco_class::init_barco();
 
-    std::string serial_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/Serial_ports.txt";
-    std::string msgs_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/ID_MSGS.txt";
-    std::string arduinos_filename = "/home/leiteribeiro_daniel/git/autoboat/autoboat_ws/src/interface/configs/Arduinos.txt";
+    std::string caminho;
+
+    if(!nh.getParam("autoboat/workspace", caminho))
+    {
+        std::cout << "Caminho do workspace não encontrado. Defina o parâmetro \"autoboat/workspace\"" << std::endl;
+        return 1;
+    }
+
+    caminho += "/src/interface/configs/";
+
+    std::string serial_filename = caminho + "Serial_ports.txt";
+    std::string msgs_filename = caminho + "ID_MSGS.txt";
+    std::string arduinos_filename = caminho + "Arduinos.txt";
 
 	std::vector<utils::Ports> p_vec = utils::get_port_list(serial_filename);
 	std::vector<utils::Dict> m_vec = utils::get_msg_list(msgs_filename), a_vec = utils::get_arduino_list(arduinos_filename);
@@ -100,7 +110,13 @@ int main(int argc, char **argv){
 	time_t start, end;
 	time(&start);
 
-	while(ros::ok()){
+    int delay_envio, delay_recebimento;
+
+    while(ros::ok()){
+
+        nh.param("autoboat/HAL/delay_envio", delay_envio, 100000);
+        nh.param("autoboat/HAL/delay_recebimento", delay_recebimento, 120000);
+
 		for (int i = 0; i < p_vec.size(); ++i){
 			if(utils::path_exist(p_vec[i].nome)){
 				// if(!Rs232_vector[i]->get_comport_state())
@@ -114,7 +130,7 @@ int main(int argc, char **argv){
 					////// Rs232_class* serial = new Rs232_class();
 					// Rs232_vector[i]->send(Id_msg);
 					p_vec[i].serial->send(Id_msg);
-					usleep(WAIT_TIME_us);
+                    usleep(delay_recebimento);
 					// std::vector<utils::Dict> parsed_msg = utils::parse_ard_msg(Rs232_vector[i]->receive());
 					std::vector<utils::Dict> parsed_msg = utils::parse_ard_msg(p_vec[i].serial->receive());
 					std::string ard_ID = parsed_msg.size() > 0 ? parsed_msg[0].value : "_";//receive response
@@ -144,10 +160,12 @@ int main(int argc, char **argv){
 					}
 				}
 			}
-		}
+        }
+
 		Barco_class::send_arduinos_msgs();
-		usleep(WAIT_TIME_us);
+        usleep(delay_envio);
 		Barco_class::receive_arduinos_msgs();
+        usleep(delay_recebimento);
 
 		time(&end);
 		if( end - start > PRINT_INTERVAL){
@@ -181,7 +199,7 @@ int main(int argc, char **argv){
 		ros_func::pub::base_stepper_current(pubBC);
 		ros_func::pub::caracol_stepper_current(pubCC);
 
-		loop_rate.sleep();
+        //loop_rate.sleep();
 		ros::spinOnce();
 	}
 	for (int i = 0; i < p_vec.size(); ++i)
