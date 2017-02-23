@@ -36,17 +36,11 @@ int main(int argc, char **argv){
 	ros::Publisher pubVbat = nh.advertise<std_msgs::Float32>("/autoboat/power/v_bat", 1);
 
     //ros::Rate loop_rate(2);
-	Barco_class::init_barco();
+    Barco_class::init_barco();
 
-    std::string caminho;
-
-    if(!nh.getParam("autoboat/workspace", caminho))
-    {
-        std::cout << "Caminho do workspace não encontrado. Defina o parâmetro \"autoboat/workspace\"" << std::endl;
-        return 1;
-    }
-
-    caminho += "/src/interface/configs/";
+    system("export caminho_HAL=$(rospack find interface)");
+    std::string caminho = getenv("caminho_HAL");
+    caminho += "/configs/";
 
     std::string serial_filename = caminho + "Serial_ports.txt";
     std::string msgs_filename = caminho + "ID_MSGS.txt";
