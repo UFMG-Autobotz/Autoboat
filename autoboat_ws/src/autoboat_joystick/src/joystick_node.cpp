@@ -8,17 +8,8 @@
 #include <sensor_msgs/Joy.h>
 #include <sensor_msgs/JoyFeedback.h>
 
-#include <autoboat_joystick/Prop_msg.h>
-#include <autoboat_joystick/Stepper_msg.h>
-
-
-
-/*
-	TA SUAVE, 
-	SO FALTA OLHAR COM O DANIEL QUAL VAI SER O TÓPICO QUE VAI TER QUE LER PRA COMEÇAR A POSTAR NOS TOPICOS DO BARCO
-	E OLHAR A QUESTAO DA PROPULSAO
-
-*/
+#include <autoboat_msgs/Prop_msg.h>
+#include <autoboat_msgs/Stepper_msg.h>
 
 ////////////////////////////////////////////////////////////////////////
 /////////////////////// Definição dos controles ////////////////////////
@@ -56,26 +47,33 @@
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
+#define PROP_MAX 180
 
-int base_position;
 int caracol_position;
 bool estado_garra = false;
 bool caracol_movimentando = false;
 
+const int botao_garra = XIS;
+const int botao_estica_caracol = R1;
+const int botao_encolhe_caracol = L1;
+const int botao_base_horario = R2;
+const int botao_base_antihorario = L2;
+const int botao_led[] = {QUADRADO, TRIANGULO, BOINHA};
 
-int botao_garra = XIS;
-int botao_estica_caracol = R1;
-int botao_encolhe_caracol = L1;
-
-int eixo_base = X_ANALOG_ESQUERDO;
-
+const int eixo_prop_x_esq = X_ANALOG_ESQUERDO;
+const int eixo_prop_x_dir = X_ANALOG_DIREITO;
+const int eixo_prop_y_esq = Y_ANALOG_ESQUERDO;
+const int eixo_prop_y_dir = Y_ANALOG_DIREITO;
 
 ros::Publisher caracol;
 ros::Publisher base;
 ros::Publisher garra;
 ros::Publisher propulsao;
+ros::Publisher led[3];
 
-autoboat_joystick::Stepper_msg pub_caracol;
+autoboat_msgs::Stepper_msg pub_caracol;
+
+bool autorizado = false;
 
 //Função de callback que é chamada todas as vezes que o programa recebe uma alteração do joystick
 //nela serão processados os comandos do joystick
@@ -85,8 +83,13 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 	//TRATAMENTO DO X
 	//SE A GARRA ESTA ABERTA ELE FECHA
 	//SE ESTA FECHADA ELE ABRE
+
+	static bool botao_garra_apertado = false;
 	std_msgs::Bool pub_garra;
-	if (joy->buttons[botao_garra] == 1){
+
+	if (joy->buttons[botao_garra] == 1 && !botao_garra_apertado){
+
+		botao_garra_apertado = true;
 
 		if (estado_garra == false){
 			estado_garra = true;
@@ -96,6 +99,8 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 		pub_garra.data = estado_garra;
 		garra.publish(pub_garra);	
 	}
+	else if(joy->buttons[botao_garra] == 0 && botao_garra_apertado)
+		botao_garra_apertado = false;
 	
 
 	//TRATAMENTO DO R2
@@ -124,8 +129,8 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 		if ( (joy->buttons[botao_encolhe_caracol] == 1) && (pub_caracol.dir.data == 0) ) {
 
 			caracol_movimentando = true;
-			pub_caracol.setpoint.data = 255;
-			pub_caracol.speed.data = 30;
+			pub_caracol.setpoint.data = 0;
+			pub_caracol.speed.data = 1;
 			pub_caracol.dir.data = -1;
 			caracol.publish(pub_caracol);
 
@@ -133,7 +138,7 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 				
 			caracol_movimentando = true;
 			pub_caracol.setpoint.data = 255;
-			pub_caracol.speed.data = 30;
+			pub_caracol.speed.data = 4;
 			pub_caracol.dir.data = 1;
 			caracol.publish(pub_caracol);
 
@@ -142,35 +147,67 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 
 	}
 
+	// Base giratória:
 
-	//TRATAMENTO DO ANALÓGICO ESQUERDO
-	//VE QUAL A DIREÇÃO PELO SINAL DO NUMERO
-	//MULTIPLICA UM VALOR MAXIMO DE ROTAÇÃO PELA MAGNITUDE
+	autoboat_msgs::Stepper_msg pub_base;
+	pub_base.speed.data = 2;
 
-	autoboat_joystick::Stepper_msg pub_base;
+	// Trata os dois botões como um número de dois bits
+	switch (joy->buttons[botao_base_horario] << 1 + joy->buttons[botao_base_antihorario])
+	{
+	case 0b01:  // Apenas anti-horário
+		pub_base.dir.data = -1;
+		pub_base.setpoint.data = -1;
+		break;
 
-	if ( joy->axes[X_ANALOG_ESQUERDO] != 0  ){
-		
-		pub_base.setpoint.data = 255;
-		pub_base.speed.data =  joy->axes[X_ANALOG_ESQUERDO] * 100  ;
-		pub_base.speed.data = log(abs(pub_base.speed.data));
-		pub_base.dir.data = joy->axes[X_ANALOG_ESQUERDO]/abs(joy->axes[X_ANALOG_ESQUERDO]);
-		base.publish(pub_base);
+	case 0b10:  // Apenas horário
+		pub_base.dir.data = 1;
+		pub_base.setpoint.data = 48;
+		break;
 
-	}else{
-	
+	default:    // Ambos soltos (00) ou ambos pressionados (11)
 		pub_base.dir.data = 0;
-		base.publish(pub_base);
-	
 	}
 
+	base.publish(pub_base);
 
-}
+	/* LEDs
+	 *   0: Laranja
+	 *   1: Azul
+	 *   2: Verde
+	 */
 
-void curent_baseCallback(const std_msgs::Int32::ConstPtr& current_base){
+	static bool botao_led_apertado[] = {false, false, false};
+	static bool estado_led[] = {false, false, false};
+	std_msgs::Bool led_msg;
 
-	base_position = current_base->data;
+	for(int i = 0; i < 3; i++)
+		if(joy->buttons[botao_led[i]] == 1 && !botao_led_apertado[i])
+		{
+			botao_led_apertado[i] = true;
 
+			led_msg.data = estado_led[i] = !estado_led[i];
+			led[i].publish(led_msg);
+		}
+		else if(joy->buttons[botao_led[i]] == 0 && botao_led_apertado[i])
+			botao_led_apertado[i] = false;
+
+	/* Propulsão
+	 *   0: Esquerda
+	 *   1: Direita
+	 */
+
+    autoboat_msgs::Prop_msg msg_prop;
+
+    #define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2))
+    #define joy_ang(x,y) std::max(std::min(90-atan2((y),(x))*180/M_PI,0.),180.)
+
+    msg_prop.vel_esq.data = joy_vel( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
+    msg_prop.vel_dir.data = joy_vel( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
+    msg_prop.ang_esq.data = joy_ang(-joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
+    msg_prop.ang_dir.data = joy_ang( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
+
+    propulsao.publish(msg_prop);
 }
 
 void current_caracolCallback(const std_msgs::Int32::ConstPtr& current_caracol){
@@ -179,8 +216,12 @@ void current_caracolCallback(const std_msgs::Int32::ConstPtr& current_caracol){
 
 }
 
+void launchCallback(const std_msgs::Bool& msg)
+{
+	autorizado = msg.data;
+}
+
 int main(int argc, char **argv){
-	pub_caracol.dir.data = 0;
 
 	ros::init(argc, argv, "joystick_node");
 	ros::NodeHandle nodo;
@@ -190,15 +231,25 @@ int main(int argc, char **argv){
 	//documento que especifica os tópicos e mensagens
 	// https://docs.google.com/spreadsheets/d/1Wz0p-1ZMdkYuoWRdanlzbrur67RxHFoacW9EP3fiRCk/edit
 
-	caracol = nodo.advertise<autoboat_joystick::Stepper_msg>("/autoboat/caracol/caracol_stepper_cmd", 1000);
-	base = nodo.advertise<autoboat_joystick::Stepper_msg>("/autoboat/caracol/base_stepper_cmd", 1000);
-	garra = nodo.advertise<std_msgs::Bool>("/autoboat/garra/open", 1000);	
-	propulsao = nodo.advertise<std_msgs::Bool>("/autoboat/prop", 1000);		
+	caracol = nodo.advertise<autoboat_msgs::Stepper_msg>("/autoboat/caracol/caracol_stepper_cmd", 10);
+	base = nodo.advertise<autoboat_msgs::Stepper_msg>("/autoboat/caracol/base_stepper_cmd", 10);
+	propulsao = nodo.advertise<autoboat_msgs::Prop_msg>("/autoboat/prop", 10);
+	garra = nodo.advertise<std_msgs::Bool>("/autoboat/garra/open", 10);
+	led[0] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_laranja",10);
+	led[1] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_azul",10);
+	led[2] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_verde",10);
 
-	
-	ros::Subscriber joystick = nodo.subscribe("joy", 1000, joyCallback);
-	ros::Subscriber current_caracol = nodo.subscribe("/autoboat/caracol/caracol_stepper_current", 1000, current_caracolCallback);
-	ros::Subscriber current_base = nodo.subscribe("/autoboat/caracol/base_stepper_current", 1000, curent_baseCallback);
+	ros::Subscriber joystick = nodo.subscribe("joy", 100, joyCallback);
+	ros::Subscriber current_caracol = nodo.subscribe("/autoboat/caracol/caracol_stepper_current", 1, current_caracolCallback);
+    ros::Subscriber launch = nodo.subscribe("/autoboat/launch/joystick", 1, launchCallback);
 
-	ros::spin();
+	ros::Rate hertz(30);
+
+	while(ros::ok())
+	{
+		if(autorizado)
+			ros::spinOnce();
+
+		hertz.sleep();
+	}
 }

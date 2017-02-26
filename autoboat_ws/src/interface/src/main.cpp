@@ -9,10 +9,10 @@ int main(int argc, char **argv){
 	ros::Subscriber subG = nh.subscribe("/autoboat/garra/open", 1, ros_func::sub::open);
 	ros::Subscriber subP = nh.subscribe("/autoboat/prop", 1, ros_func::sub::prop);
 	ros::Subscriber subSB = nh.subscribe("/autoboat/caracol/base_stepper_cmd", 1, ros_func::sub::base_stepper_cmd);
-    ros::Subscriber subSC = nh.subscribe("/autoboat/caracol/caracol_stepper_cmd", 1, ros_func::sub::caracol_stepper_cmd);
-    ros::Subscriber subLA = nh.subscribe("/autoboat/interface/LED_azul", 1, ros_func::sub::LED_azul);
-    ros::Subscriber subLL = nh.subscribe("/autoboat/interface/LED_laranja", 1, ros_func::sub::LED_laranja);
-    ros::Subscriber subLV = nh.subscribe("/autoboat/interface/LED_verde", 1, ros_func::sub::LED_verde);
+	ros::Subscriber subSC = nh.subscribe("/autoboat/caracol/caracol_stepper_cmd", 1, ros_func::sub::caracol_stepper_cmd);
+	ros::Subscriber subLA = nh.subscribe("/autoboat/interface/LED_azul", 1, ros_func::sub::LED_azul);
+	ros::Subscriber subLL = nh.subscribe("/autoboat/interface/LED_laranja", 1, ros_func::sub::LED_laranja);
+	ros::Subscriber subLV = nh.subscribe("/autoboat/interface/LED_verde", 1, ros_func::sub::LED_verde);
 
 	ros::Publisher pubA = nh.advertise<std_msgs::Float32>("/autoboat/angulo", 1);
 	ros::Publisher pubAB = nh.advertise<std_msgs::Bool>("/autoboat/diagnostics/arduboat_up", 1);
@@ -35,22 +35,21 @@ int main(int argc, char **argv){
 	ros::Publisher pubU = nh.advertise<std_msgs::Float32MultiArray>("/autoboat/ultrassons", 1);
 	ros::Publisher pubVbat = nh.advertise<std_msgs::Float32>("/autoboat/power/v_bat", 1);
 
-    //ros::Rate loop_rate(2);
-    Barco_class::init_barco();
+	//ros::Rate loop_rate(2);
+	Barco_class::init_barco();
 
-    system("export caminho_HAL=$(rospack find interface)");
-    std::string caminho = getenv("caminho_HAL");
-    caminho += "/configs/";
+	std::string caminho (argv[0]);
+	caminho.replace(caminho.rfind("devel"), caminho.npos, "src/interface/configs/");
 
-    std::string serial_filename = caminho + "Serial_ports.txt";
-    std::string msgs_filename = caminho + "ID_MSGS.txt";
-    std::string arduinos_filename = caminho + "Arduinos.txt";
+	std::string serial_filename = caminho + "Serial_ports.txt";
+	std::string msgs_filename = caminho + "ID_MSGS.txt";
+	std::string arduinos_filename = caminho + "Arduinos.txt";
 
 	std::vector<utils::Ports> p_vec = utils::get_port_list(serial_filename);
 	std::vector<utils::Dict> m_vec = utils::get_msg_list(msgs_filename), a_vec = utils::get_arduino_list(arduinos_filename);
 
 	std::string id;
-    std::vector <std::string> smid, rmid;
+	std::vector <std::string> smid, rmid;
 
 	for (int i = 0; i < p_vec.size(); ++i){
 		std::cout << p_vec[i].n << " - " <<p_vec[i].nome << std::endl;
@@ -104,12 +103,12 @@ int main(int argc, char **argv){
 	time_t start, end;
 	time(&start);
 
-    int delay_envio, delay_recebimento;
+	int delay_envio, delay_recebimento;
 
-    while(ros::ok()){
+	while(ros::ok()){
 
-        nh.param("autoboat/HAL/delay_envio", delay_envio, 100000);
-        nh.param("autoboat/HAL/delay_recebimento", delay_recebimento, 120000);
+		nh.param("autoboat/HAL/delay_envio", delay_envio, 100000);
+		nh.param("autoboat/HAL/delay_recebimento", delay_recebimento, 120000);
 
 		for (int i = 0; i < p_vec.size(); ++i){
 			if(utils::path_exist(p_vec[i].nome)){
@@ -124,7 +123,7 @@ int main(int argc, char **argv){
 					////// Rs232_class* serial = new Rs232_class();
 					// Rs232_vector[i]->send(Id_msg);
 					p_vec[i].serial->send(Id_msg);
-                    usleep(delay_recebimento);
+					usleep(delay_recebimento);
 					// std::vector<utils::Dict> parsed_msg = utils::parse_ard_msg(Rs232_vector[i]->receive());
 					std::vector<utils::Dict> parsed_msg = utils::parse_ard_msg(p_vec[i].serial->receive());
 					std::string ard_ID = parsed_msg.size() > 0 ? parsed_msg[0].value : "_";//receive response
@@ -150,16 +149,16 @@ int main(int argc, char **argv){
 						d_con.key = "disconnected";
 						d_con.value = utils::numTostr(con_t);
 						connection_log[i].push_back(d_con);
-                        //Barco_class::init_barco();
+						//Barco_class::init_barco();
 					}
 				}
 			}
-        }
+		}
 
 		Barco_class::send_arduinos_msgs();
-        usleep(delay_envio);
+		usleep(delay_envio);
 		Barco_class::receive_arduinos_msgs();
-        usleep(delay_recebimento);
+		usleep(delay_recebimento);
 
 		time(&end);
 		if( end - start > PRINT_INTERVAL){
@@ -175,7 +174,7 @@ int main(int argc, char **argv){
 /*
 		ros_func::pub::LED_laranja(pubLL);
 		ros_func::pub::LED_azul(pubLA);
-        ros_func::pub::LED_verde(pubLV);
+		ros_func::pub::LED_verde(pubLV);
 */
 		ros_func::pub::button(pubBU);
 		ros_func::pub::v_bat(pubVbat);
@@ -193,7 +192,7 @@ int main(int argc, char **argv){
 		ros_func::pub::base_stepper_current(pubBC);
 		ros_func::pub::caracol_stepper_current(pubCC);
 
-        //loop_rate.sleep();
+		//loop_rate.sleep();
 		ros::spinOnce();
 	}
 	for (int i = 0; i < p_vec.size(); ++i)

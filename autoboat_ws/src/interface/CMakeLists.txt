@@ -7,23 +7,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   roscpp
   std_msgs
-  message_generation
+  autoboat_msgs
 )
 
-add_message_files(
-  FILES
-  Stepper_msg.msg
-  Prop_msg.msg
-)
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
-
-catkin_package(
- CATKIN_DEPENDS message_runtime 
-)
+catkin_package()
 
 #include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(include ${catkin_INCLUDE_DIRS})

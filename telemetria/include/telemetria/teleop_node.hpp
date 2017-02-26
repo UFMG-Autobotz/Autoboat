@@ -20,8 +20,8 @@ public:
 
     // Variáveis alteradas pela aba de teleoperação
     bool estado_garra, estado_led_laranja, estado_led_azul, estado_led_verde;
-    int base_vel, base_pos, base_dir, caracol_vel, caracol_pos, caracol_dir;
-    float vel_dir, vel_esq, ang_dir, ang_esq;
+    int base_pos, base_dir, caracol_pos, caracol_dir;
+    float vel_dir, vel_esq, ang_dir, ang_esq, base_vel, caracol_vel;
 
     // Funções da thread
     bool init();

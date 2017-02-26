@@ -5,23 +5,10 @@ find_package(catkin REQUIRED COMPONENTS
   joy
   roscpp
   std_msgs
-  message_generation
+  autoboat_msgs
 )
 
- add_message_files(
-   FILES
-   Prop_msg.msg
-   Stepper_msg.msg
- )
-
- generate_messages(
-   DEPENDENCIES
-   std_msgs
- )
-
-catkin_package(
-	CATKIN_DEPENDS message_runtime
-)
+catkin_package()
 
 include_directories(
   ${catkin_INCLUDE_DIRS}

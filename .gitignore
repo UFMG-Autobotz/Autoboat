@@ -4,8 +4,10 @@
 autoboat_ws/build/
 autoboat_ws/devel/
 autoboat_ws/install/
+
+# Arquivos gerados pelo QtCreator
+
 telemetria/CMakeLists.txt.user
 autoboat_ws/src/interface/CMakeLists.txt.user
-autoboat_ws/src/interface/lib/ros_functions.hpp.autosave
-autoboat_ws/src/interface/src/main.cpp.autosave
+autoboat_ws/src/autoboat_joystick/CMakeLists.txt.user
 

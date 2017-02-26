@@ -1,6 +1,6 @@
 #include <ros/ros.h>
-#include <interface/Stepper_msg.h>
-#include <interface/Prop_msg.h>
+#include <autoboat_msgs/Stepper_msg.h>
+#include <autoboat_msgs/Prop_msg.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Int32.h>
@@ -13,13 +13,13 @@
 
 namespace ros_func{
 	namespace sub{
-		void base_stepper_cmd(const interface::Stepper_msg& msg);
-		void caracol_stepper_cmd(const interface::Stepper_msg& msg);
+		void base_stepper_cmd(const autoboat_msgs::Stepper_msg& msg);
+		void caracol_stepper_cmd(const autoboat_msgs::Stepper_msg& msg);
 		void open(const std_msgs::Bool& msg);
-		void prop(const interface::Prop_msg& msg);
-        void LED_laranja(const std_msgs::Bool& msg);
-        void LED_azul(const std_msgs::Bool& msg);
-        void LED_verde(const std_msgs::Bool& msg);
+		void prop(const autoboat_msgs::Prop_msg& msg);
+		void LED_laranja(const std_msgs::Bool& msg);
+		void LED_azul(const std_msgs::Bool& msg);
+		void LED_verde(const std_msgs::Bool& msg);
 	}
 	namespace pub{
 		void LED_laranja(ros::Publisher pubLL);

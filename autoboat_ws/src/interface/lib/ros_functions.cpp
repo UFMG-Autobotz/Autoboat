@@ -3,39 +3,39 @@
 namespace ros_func{
 // ---------------- CALLBACK FUNCTIONs -----------------
 	namespace sub{
-		void base_stepper_cmd(const interface::Stepper_msg& msg){
-            Barco_class::set_base_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
+		void base_stepper_cmd(const autoboat_msgs::Stepper_msg& msg){
+			Barco_class::set_base_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
 		}
 		
-		void caracol_stepper_cmd(const interface::Stepper_msg& msg){
-            Barco_class::set_caracol_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
+		void caracol_stepper_cmd(const autoboat_msgs::Stepper_msg& msg){
+			Barco_class::set_caracol_cmd(msg.setpoint.data, msg.speed.data, msg.dir.data);
 		}
 		
 		void open(const std_msgs::Bool& msg){
-            Barco_class::set_garra_state(msg.data);
+			Barco_class::set_garra_state(msg.data);
 		}
 		
-		void prop(const interface::Prop_msg& msg){
+		void prop(const autoboat_msgs::Prop_msg& msg){
 			std::vector <float> mot_V(2), mot_A(2);
 			mot_V[0] = msg.vel_esq.data;
 			mot_V[1] = msg.vel_dir.data;
 			mot_A[0] = msg.ang_esq.data;
 			mot_A[1] = msg.ang_dir.data;
 			Barco_class::set_mot_vel(mot_V);
-            Barco_class::set_mot_ang(mot_A);
+			Barco_class::set_mot_ang(mot_A);
 		}
 
-        void LED_laranja(const std_msgs::Bool& msg){
-            Barco_class::set_LED_l(msg.data);
-        }
+		void LED_laranja(const std_msgs::Bool& msg){
+			Barco_class::set_LED_l(msg.data);
+		}
 
-        void LED_azul(const std_msgs::Bool& msg){
-            Barco_class::set_LED_a(msg.data);
-        }
+		void LED_azul(const std_msgs::Bool& msg){
+			Barco_class::set_LED_a(msg.data);
+		}
 
-        void LED_verde(const std_msgs::Bool& msg){
-            Barco_class::set_LED_v(msg.data);
-        }
+		void LED_verde(const std_msgs::Bool& msg){
+			Barco_class::set_LED_v(msg.data);
+		}
 	}
 
 // ---------------- PUBLISH FUNCTIONs -----------------
