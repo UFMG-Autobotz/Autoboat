@@ -75,15 +75,17 @@ MainWindow::~MainWindow() {}
 void MainWindow::sair()
 {
     close();    // Fecha a janela
+
+    // Encerra o nó de controle que estiver rodando
+    ROS_INFO("Encerrando no");
+    teleop.autoriza_autonav(false);
+    teleop.autoriza_joystick(false);
 }
 
 void MainWindow::iniciar_autonav()
 {
-//    ROS_INFO("Iniciando no de navegação autonoma...");
-
-//    int i = system("rosrun turtlesim turtlesim_node");
-
-//    ROS_INFO("%i",i);
+    ROS_INFO("Iniciando no de navegação autonoma...");
+    teleop.autoriza_autonav(true);
 
     setUpdatesEnabled(false);   // Não atualiza a aba enquanto ela está sendo modificada
 
@@ -98,9 +100,8 @@ void MainWindow::iniciar_autonav()
 
 void MainWindow::iniciar_joystick()
 {
-//    ROS_INFO("Iniciando no de controle via joystick");
-//    int i = system("roslaunch autoboat_joystick autoboat_joystick.launch");
-//    ROS_INFO("%i",i);
+    ROS_INFO("Iniciando no de controle via joystick");
+    teleop.autoriza_joystick(true);
 
     setUpdatesEnabled(false);   // Não atualiza a aba enquanto ela está sendo modificada
 
@@ -166,6 +167,11 @@ void MainWindow::iniciar_teleop()   // Inicializa a o nó e a aba de teleoperaç
 
 void MainWindow::trocar_operacao()  // Chamada quando clica o botão "Trocar modo de operação"
 {
+    // Encerra o nó de controle que estiver rodando
+    ROS_INFO("Encerrando no");
+    teleop.autoriza_autonav(false);
+    teleop.autoriza_joystick(false);
+
     setUpdatesEnabled(false);   // Não atualiza a aba enquanto ela está sendo modificada
 
     // Muda o texto principal da aba de boas vindas
@@ -394,13 +400,13 @@ void MainWindow::on_campo_caracol_textChanged(QString qstr)
 
 // Campos numéricos da velocidade dos steppers:
 
-void MainWindow::on_vel_base_valueChanged(float valor)
+void MainWindow::on_vel_base_valueChanged(double valor)
 {
     teleop.base_vel = valor;    // Informa ao nó o novo valor da velocidade da base
     teleop.comando_base();  // Manda o nó publicar no tópico da base
 }
 
-void MainWindow::on_vel_caracol_valueChanged(float valor)
+void MainWindow::on_vel_caracol_valueChanged(double valor)
 {
     teleop.caracol_vel = valor; // Informa ao nó o novo valor da velocidade do caracol
     teleop.comando_caracol();   // Manda o nó publicar no tópico do caracol

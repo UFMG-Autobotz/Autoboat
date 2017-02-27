@@ -7,6 +7,6 @@
 		</node>
 
 	<!-- nodo autoboat_joystick  -->
-		<node pkg="autoboat_joystick" type="autoboat_joystick" name="joystick"/>
+		<node pkg="autoboat_joystick" type="autoboat_joystick" name="joystick" respawn="true"/>
 
 </launch>

@@ -73,8 +73,6 @@ ros::Publisher led[3];
 
 autoboat_msgs::Stepper_msg pub_caracol;
 
-bool autorizado = false;
-
 //Função de callback que é chamada todas as vezes que o programa recebe uma alteração do joystick
 //nela serão processados os comandos do joystick
 void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
@@ -197,17 +195,17 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 	 *   1: Direita
 	 */
 
-    autoboat_msgs::Prop_msg msg_prop;
+	autoboat_msgs::Prop_msg msg_prop;
 
-    #define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2))
-    #define joy_ang(x,y) std::max(std::min(90-atan2((y),(x))*180/M_PI,0.),180.)
+	#define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2))
+	#define joy_ang(x,y) std::max(std::min(90-atan2((y),(x))*180/M_PI,0.),180.)
 
-    msg_prop.vel_esq.data = joy_vel( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
-    msg_prop.vel_dir.data = joy_vel( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
-    msg_prop.ang_esq.data = joy_ang(-joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
-    msg_prop.ang_dir.data = joy_ang( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
+	msg_prop.vel_esq.data = joy_vel( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
+	msg_prop.vel_dir.data = joy_vel( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
+	msg_prop.ang_esq.data = joy_ang(-joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
+	msg_prop.ang_dir.data = joy_ang( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
 
-    propulsao.publish(msg_prop);
+	propulsao.publish(msg_prop);
 }
 
 void current_caracolCallback(const std_msgs::Int32::ConstPtr& current_caracol){
@@ -216,15 +214,15 @@ void current_caracolCallback(const std_msgs::Int32::ConstPtr& current_caracol){
 
 }
 
-void launchCallback(const std_msgs::Bool& msg)
-{
-	autorizado = msg.data;
-}
-
 int main(int argc, char **argv){
 
 	ros::init(argc, argv, "joystick_node");
 	ros::NodeHandle nodo;
+
+	ros::Rate loopRate(24);
+
+	while(!ros::param::param("/autoboat/launch/joystick",true))
+		loopRate.sleep();
 	
 	pub_caracol.dir.data = 0;
 
@@ -241,15 +239,10 @@ int main(int argc, char **argv){
 
 	ros::Subscriber joystick = nodo.subscribe("joy", 100, joyCallback);
 	ros::Subscriber current_caracol = nodo.subscribe("/autoboat/caracol/caracol_stepper_current", 1, current_caracolCallback);
-    ros::Subscriber launch = nodo.subscribe("/autoboat/launch/joystick", 1, launchCallback);
 
-	ros::Rate hertz(30);
-
-	while(ros::ok())
+	while(ros::ok() && nodo.param("/autoboat/launch/joystick",true))
 	{
-		if(autorizado)
-			ros::spinOnce();
-
-		hertz.sleep();
+		ros::spinOnce();
+		loopRate.sleep();
 	}
 }

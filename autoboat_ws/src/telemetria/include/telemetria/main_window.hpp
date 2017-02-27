@@ -62,8 +62,8 @@ public Q_SLOTS:
     void on_campo_caracol_textChanged(QString qstr);
     void on_campo_dir_textChanged(QString qstr);
     void on_campo_esq_textChanged(QString qstr);
-    void on_vel_base_valueChanged(float valor);
-    void on_vel_caracol_valueChanged(float valor);
+    void on_vel_base_valueChanged(double valor);
+    void on_vel_caracol_valueChanged(double valor);
 
     // Caixas de seleção de direção
     void base_dir();

@@ -34,6 +34,8 @@ public:
     void comando_base();
     void comando_caracol();
     void comando_leds();
+    void autoriza_autonav(bool);
+    void autoriza_joystick(bool);
 
 Q_SIGNALS:
 

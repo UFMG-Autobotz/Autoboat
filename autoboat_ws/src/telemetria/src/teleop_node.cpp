@@ -27,8 +27,11 @@ TeleopNode::~TeleopNode()
 {
     if(ros::isStarted())    // Verifica se ros::start() foi chamada
     {
-      ros::shutdown();  // Pede o ROS para desligar
-      ros::waitForShutdown();   // Espera o desligamento
+        ros::param::del("autoboat/launch/autonav");     // Remove os parâmetros
+        ros::param::del("autoboat/launch/joystick");
+
+        ros::shutdown();  // Pede o ROS para desligar
+        ros::waitForShutdown();   // Espera o desligamento
     }
 
     wait(); // Espera run() retornar
@@ -122,6 +125,16 @@ void TeleopNode::comando_leds()
 
     msg.data = estado_led_laranja;
     led_L_pub.publish(msg);
+}
+
+void TeleopNode::autoriza_autonav(bool aut)
+{
+    ros::param::set("autoboat/launch/autonav",aut);
+}
+
+void TeleopNode::autoriza_joystick(bool aut)
+{
+    ros::param::set("autoboat/launch/joystick",aut);
 }
 
 }  // namespace telemetria
