@@ -15,7 +15,7 @@ include_directories(
 )
 
 add_executable(autoboat_joystick src/joystick_node.cpp)
-
+add_dependencies(autoboat_joystick autoboat_msgs_generate_messages)
 target_link_libraries(autoboat_joystick
    ${catkin_LIBRARIES}
 )

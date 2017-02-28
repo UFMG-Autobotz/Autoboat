@@ -1,9 +1,10 @@
 <launch>
 
+	<node pkg="telemetria" type="telemetria" name="telemetria"   required="true"/>
+	<node pkg="interface"  type="hal"        name="autoboat_hal" required="true"/>
+
 	<param name="autoboat/launch/autonav"  value="false"/>
 	<param name="autoboat/launch/joystick" value="false"/>
-
-	<node pkg="telemetria" type="telemetria" name="telemetria" required="true"/>
 
 	<include file="$(find autoboat_joystick)/launch/autoboat_joystick.launch"/>
 	

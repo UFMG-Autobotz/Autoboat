@@ -21,6 +21,6 @@ file(GLOB_RECURSE QT_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} FOLLOW_SYMLINK
 
 add_executable(telemetria ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
 target_link_libraries(telemetria ${QT_LIBRARIES} ${catkin_LIBRARIES})
-#add_dependencies(telemetria telemetria_generate_messages_cpp)
+add_dependencies(telemetria autoboat_msgs_generate_messages)
 install(TARGETS telemetria RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 

@@ -27,6 +27,16 @@ O Melhor Barco de Minas
 # Instruções
 
 ### Compilação e Firmware
+#### Workspace ROS
+Para compilar os pacotes no workspace, basta seguir as pequenas instruções da telemetria mencionadas abaixo.  
+Em seguida basta rodar o `catkin_make` na raiz do workspace.
+
+Para rodar o software do robô, basta dar source nos pacotes (`. devel\setup.bash`) e rodar o seguinte launch:  
+```
+roslaunch autoboat_msgs autoboat.launch
+```
+
+#### Arduinos
 Serão utilizados dois Arduinos, o [Mestre](firmware/Mestre) e o [Chassi](firmware/chassi).
 Para compilar os códigos, é necessário que as seguintes versões mais recentes destas bibliotecas estejam na pasta **libraries** do seu computador:
 - [WireBotz](https://github.com/pedroblanc/modulos/tree/master/WireBotz/copy_to_libraries/WireBotz)
@@ -42,7 +52,15 @@ TODO: Instruções de inicialização do robô
 TODO: Instruções de como gerar calibrações e colocá-las em autoboat_ws/config (se houver alguma calibração)
 
 ### Telemetria
-Instruções de como inicializar a telemetria
-- Para instalar e compilar: leia [este documento](telemetria/README.md).
+- Antes de compilar, é necessário instalar o pacote qt-ros  
+```
+sudo apt install ros-kinetic-qt-ros
+```  
+Também é necessária a seguinte gambiarra:  
+ 1. Procure o arquivo `/usr/include/boost/type_traits/detail/has_binary_operator.hpp` em seu computador
+ 2. Envolva-o entre `#ifndef Q_MOC_RUN` e `#endif` (você precisará alterar as permissões para isso)
+
+E tá pronto o sorvetinho
+
 - Para estabelecer a conexão entre os dois computadores:  
-  *(será adicionado em breve, por enquanto contente-se com [isso](http://wiki.ros.org/ROS/Tutorials/MultipleMachines) e [isso](http://wiki.ros.org/ROS/NetworkSetup))*
+  *(será adicionado em breve, por enquanto talvez [isso](http://wiki.ros.org/ROS/Tutorials/MultipleMachines) e [isso](http://wiki.ros.org/ROS/NetworkSetup) sejam útieis)*

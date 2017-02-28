@@ -6,8 +6,4 @@ autoboat_ws/devel/
 autoboat_ws/install/
 
 # Arquivos gerados pelo QtCreator
-
-autoboat_ws/src/telemetria/CMakeLists.txt.user
-autoboat_ws/src/interface/CMakeLists.txt.user
-autoboat_ws/src/autoboat_joystick/CMakeLists.txt.user
-
+autoboat_ws/src/*/CMakeLists.txt.user

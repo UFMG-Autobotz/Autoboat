@@ -3,7 +3,7 @@
 #define PRINT_INTERVAL 10
 
 int main(int argc, char **argv){
-	ros::init(argc, argv, "teste_interface");
+	ros::init(argc, argv, "autoboat_hal");
 	ros::NodeHandle nh;
 
 	ros::Subscriber subG = nh.subscribe("/autoboat/garra/open", 1, ros_func::sub::open);
