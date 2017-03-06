@@ -5,7 +5,7 @@ find_package(catkin REQUIRED COMPONENTS qt_build roscpp std_msgs autoboat_msgs)
 
 catkin_package()
 
-include_directories(${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} include/telemetria)
 
 rosbuild_prepare_qt4(QtCore QtGui)
 

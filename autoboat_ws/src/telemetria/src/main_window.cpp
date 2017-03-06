@@ -1,6 +1,6 @@
 ﻿#include <QtGui>
 #include <QMessageBox>
-#include "../include/telemetria/main_window.hpp"
+#include "main_window.hpp"
 
 namespace telemetria
 {
@@ -581,26 +581,20 @@ void MainWindow::mostra_base()
 {
     QString qstr;
 
-    qstr.setNum(monit.msg_base.setpoint.data);
+    qstr.setNum(monit.msg_base.data);
     ui.painel_base->setText(qstr);
 
-    qstr.setNum(monit.msg_base.speed.data * monit.msg_base.dir.data);
-    ui.painel_base_vel->setText(qstr);
-
-    pont_base->angulo(monit.msg_base.setpoint.data * 180/48);
+    pont_base->angulo(monit.msg_base.data * 180/48);
 }
 
 void MainWindow::mostra_caracol()
 {
     QString qstr;
 
-    qstr.setNum(monit.msg_caracol.setpoint.data);
+    qstr.setNum(monit.msg_caracol.data);
     ui.painel_caracol->setText(qstr);
 
-    qstr.setNum(monit.msg_caracol.speed.data * monit.msg_caracol.dir.data);
-    ui.painel_caracol_vel->setText(qstr);
-
-    ui.barra_caracol->setValue(monit.msg_caracol.setpoint.data * 100/256);
+    ui.barra_caracol->setValue(monit.msg_caracol.data * 100/256);
 }
 
 void MainWindow::mostra_garra()
