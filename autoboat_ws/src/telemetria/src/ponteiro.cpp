@@ -1,4 +1,4 @@
-#include "../include/telemetria/ponteiro.hpp"
+#include "ponteiro.hpp"
 
 namespace telemetria
 {

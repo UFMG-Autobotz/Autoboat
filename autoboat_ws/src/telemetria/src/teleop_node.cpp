@@ -2,7 +2,7 @@
 #include <std_msgs/Bool.h>
 #include <autoboat_msgs/Stepper_msg.h>
 #include <autoboat_msgs/Prop_msg.h>
-#include "../include/telemetria/teleop_node.hpp"
+#include "teleop_node.hpp"
 
 namespace telemetria
 {

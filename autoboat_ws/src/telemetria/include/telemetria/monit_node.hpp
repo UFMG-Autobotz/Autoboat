@@ -1,8 +1,8 @@
 #ifndef telemetria_MONITNODE_HPP_
 #define telemetria_MONITNODE_HPP_
 
-#include <ros/ros.h>
 #include <QThread>
+#include <ros/ros.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
@@ -29,7 +29,7 @@ public:
 
     // Armazenam os valores atuais de cada informação do barco
     autoboat_msgs::Prop_msg msg_prop;
-    autoboat_msgs::Stepper_msg msg_base, msg_caracol;
+    std_msgs::Int32 msg_base, msg_caracol;
     std_msgs::Bool msg_garra_open, msg_garra_in, msg_garra_out;
     std_msgs::Float32 msg_imu, msg_bateria_i, msg_bateria_v;
     std_msgs::Float32MultiArray msg_ultrassom;
@@ -63,8 +63,8 @@ private:
 
     // Callbacks
     void prop_cb      (const autoboat_msgs::Prop_msg&);
-    void base_cb      (const autoboat_msgs::Stepper_msg&);
-    void caracol_cb   (const autoboat_msgs::Stepper_msg&);
+    void base_cb      (const std_msgs::Int32 &);
+    void caracol_cb   (const std_msgs::Int32 &);
     void garra_open_cb(const std_msgs::Bool&);
     void garra_in_cb  (const std_msgs::Bool&);
     void garra_out_cb (const std_msgs::Bool&);

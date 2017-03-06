@@ -2,7 +2,7 @@
 #include <std_msgs/Bool.h>
 #include <autoboat_msgs/Stepper_msg.h>
 #include <autoboat_msgs/Prop_msg.h>
-#include "../include/telemetria/monit_node.hpp"
+#include "monit_node.hpp"
 
 namespace telemetria
 {
@@ -79,13 +79,13 @@ void MonitNode::prop_cb(const autoboat_msgs::Prop_msg &msg)
     Q_EMIT atual_prop();
 }
 
-void MonitNode::base_cb(const autoboat_msgs::Stepper_msg& msg)
+void MonitNode::base_cb(const std_msgs::Int32& msg)
 {
   msg_base = msg;
   Q_EMIT atual_base();
 }
 
-void MonitNode::caracol_cb(const autoboat_msgs::Stepper_msg& msg)
+void MonitNode::caracol_cb(const std_msgs::Int32& msg)
 {
   msg_caracol = msg;
   Q_EMIT atual_caracol();

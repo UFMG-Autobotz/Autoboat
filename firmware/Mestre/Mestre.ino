@@ -20,6 +20,7 @@ enum LED_cor {laranja, azul, verde};
 bool estado_led[3], estado_botao; // Placa de interface
 uint16_t ultrassom[4];            // Leituras dos ultrassons
 int lipo_i, lipo_v;               // Corrente e tensão na bateria
+void piscaLEDs();
 
 // Manipulador
 extern int leitura_sensor_dentro, leitura_sensor_fora, passo_atual_base, passo_atual_caracol;
@@ -56,7 +57,10 @@ void loop()
     if(RXbuff[0] == interf_LiPO && RXbuff[1] == HIGH) // Verifica se o botão foi pressionado
       ligado = true;
     else
+    {
+      piscaLEDs();
       return;
+    }
   
   switch(RXbuff[0]) // Confere o tipo da mensagem recebida
   {
@@ -121,5 +125,31 @@ void comando_leds(LED_cor cor, bool estado)
 void msg_recebida()
 {
   pronto_para_envio = true;
+}
+
+void piscaLEDs()
+{
+  static unsigned long t_anterior;
+  unsigned long t_atual = millis();
+  
+  uint8_t i =  (t_atual - t_anterior)/150;
+  t_anterior = t_atual;
+
+  switch(i % 3)
+  {
+  case 0:
+    comando_leds(laranja, false);
+    comando_leds(azul, true);
+    break;
+
+  case 1:
+    comando_leds(azul, false);
+    comando_leds(verde, true);
+    break;
+
+  case 2:
+    comando_leds(verde, false);
+    comando_leds(laranja, true);
+  }
 }
 
