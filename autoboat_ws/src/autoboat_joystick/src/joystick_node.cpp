@@ -197,13 +197,29 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 
 	autoboat_msgs::Prop_msg msg_prop;
 
-	#define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2))
+    #define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2)) * PROP_MAX
 	#define joy_ang(x,y) std::max(std::min(90-atan2((y),(x))*180/M_PI,0.),180.)
 
 	msg_prop.vel_esq.data = joy_vel( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
 	msg_prop.vel_dir.data = joy_vel( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
 	msg_prop.ang_esq.data = joy_ang(-joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
 	msg_prop.ang_dir.data = joy_ang( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
+
+    std::cout << "Analogico ESQUERDO\n"
+                 "\tx = " << joy->axes[eixo_prop_x_esq] << '\n' <<
+                 "\ty = " << joy->axes[eixo_prop_y_esq] << '\n' <<
+                 "\t---\n" <<
+                 "\t90*raio = " << msg_prop.vel_esq.data << '\n' <<
+                 "\tangulo  = " << msg_prop.ang_esq.data << '\n' <<
+                 "------------------\n" << std::endl;
+
+    std::cout << "Analogico DIREITO\n"
+                 "\tx = " << joy->axes[eixo_prop_x_dir] << '\n' <<
+                 "\ty = " << joy->axes[eixo_prop_y_dir] << '\n' <<
+                 "\t---\n" <<
+                 "\t90*raio = " << msg_prop.vel_dir.data << '\n' <<
+                 "\tangulo  = " << msg_prop.ang_dir.data << '\n' <<
+                 "------------------\n" << std::endl;
 
 	propulsao.publish(msg_prop);
 }
