@@ -129,13 +129,9 @@ void msg_recebida()
 
 void piscaLEDs()
 {
-  static unsigned long t_anterior;
-  unsigned long t_atual = millis();
-  
-  uint8_t i =  (t_atual - t_anterior)/150;
-  t_anterior = t_atual;
+  static unsigned int t = millis()/150;
 
-  switch(i % 3)
+  switch(t % 3)
   {
   case 0:
     comando_leds(laranja, false);

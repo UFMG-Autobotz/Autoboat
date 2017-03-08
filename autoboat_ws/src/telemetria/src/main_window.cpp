@@ -573,8 +573,8 @@ void MainWindow::mostra_prop()
     ui.barra_lin->setValue(50 + monit.lin * 50/monit.prop_max);
     ui.barra_ang->setValue(50 + monit.ang * 50/monit.ang_max);
 
-    pont_esq->angulo(-monit.msg_prop.ang_esq.data);
-    pont_dir->angulo(monit.msg_prop.ang_dir.data);
+    pont_esq->angulo(monit.msg_prop.ang_esq.data);
+    pont_dir->angulo(-monit.msg_prop.ang_dir.data);
 }
 
 void MainWindow::mostra_base()
@@ -641,10 +641,10 @@ void MainWindow::mostra_ultrassom()
     QString qstr[4];
 
     for(int i = 0; i < 4; i++)
-        if(monit.msg_ultrassom.data[i] > 0)     // Confere se não está fora de alcance
+//        if(monit.msg_ultrassom.data[i] > 0)     // Confere se não está fora de alcance
             qstr[i].setNum(monit.msg_ultrassom.data[i]);
-        else
-            qstr[i] = "...";    // Imprime reticências caso esteja fora de alcance
+//        else
+//            qstr[i] = "...";    // Imprime reticências caso esteja fora de alcance
 
     ui.painel_ultr_frente->setText(qstr[0]);
     ui.painel_ultr_dir->setText(qstr[1]);
