@@ -83,8 +83,8 @@ void setup() {
     ServoR.attach(DIRR);
     ServoL.attach(DIRL);
 
-    MotorR.write(30); 
-    MotorL.write(30);
+    MotorR.write(0); 
+    MotorL.write(0);
     
     pinMode(LED1,OUTPUT);
     pinMode(LED2,OUTPUT);

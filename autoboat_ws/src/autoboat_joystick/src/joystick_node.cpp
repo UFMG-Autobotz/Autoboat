@@ -49,13 +49,10 @@
 
 #define PROP_MAX 180
 
-#define joy_vel(x,y) sqrt(pow((x),2) + pow((y),2)) * PROP_MAX
-#define joy_ang(x,y) std::min(std::max(90-atan2((y),(x))*180/M_PI,0.),180.)
-
-
 int caracol_position;
 bool estado_garra = false;
 bool caracol_movimentando = false;
+int cnt_ve, cnt_vd, cnt_ae, cnt_ad;
 
 const int botao_garra = XIS;
 const int botao_estica_caracol = R1;
@@ -75,7 +72,10 @@ ros::Publisher garra;
 ros::Publisher propulsao;
 ros::Publisher led[3];
 
+ros::Timer timer;
+
 autoboat_msgs::Stepper_msg pub_caracol;
+autoboat_msgs::Prop_msg msg_prop;
 
 //Função de callback que é chamada todas as vezes que o programa recebe uma alteração do joystick
 //nela serão processados os comandos do joystick
@@ -194,25 +194,43 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 		else if(joy->buttons[botao_led[i]] == 0 && botao_led_apertado[i])
 			botao_led_apertado[i] = false;
 
-	/* Propulsão
-	 *   0: Esquerda
-	 *   1: Direita
-	 */
+    // Propulsão
 
-	autoboat_msgs::Prop_msg msg_prop;
-
-	msg_prop.vel_esq.data = joy_vel( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
-	msg_prop.vel_dir.data = joy_vel( joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
-	msg_prop.ang_esq.data = joy_ang( joy->axes[eixo_prop_x_esq], joy->axes[eixo_prop_y_esq]);
-	msg_prop.ang_dir.data = joy_ang(-joy->axes[eixo_prop_x_dir], joy->axes[eixo_prop_y_dir]);
-
-	propulsao.publish(msg_prop);
+    cnt_ve = round(joy->axes[eixo_prop_y_esq]);
+    cnt_vd = round(joy->axes[eixo_prop_y_dir]);
+    cnt_ae = round(joy->axes[eixo_prop_x_esq]);
+    cnt_ad = round(joy->axes[eixo_prop_x_dir]);
 }
 
 void current_caracolCallback(const std_msgs::Int32::ConstPtr& current_caracol){
 
-	caracol_position = current_caracol->data;	
+    caracol_position = current_caracol->data;
 
+}
+
+void timer_callback(const ros::TimerEvent&)
+{
+    if(cnt_ve > 0 && msg_prop.vel_dir.data < 100)
+        msg_prop.vel_dir.data++;
+    else if(cnt_ve < 0 && msg_prop.vel_dir.data > 0)
+        msg_prop.vel_dir.data--;
+
+    if(cnt_vd > 0 && msg_prop.vel_esq.data < 100)
+        msg_prop.vel_esq.data++;
+    else if(cnt_vd < 0 && msg_prop.vel_esq.data > 0)
+        msg_prop.vel_esq.data--;
+
+    if(cnt_ae > 0 && msg_prop.ang_dir.data < 180)
+        msg_prop.ang_dir.data += 2;
+    else if(cnt_ae < 0 && msg_prop.ang_dir.data > 0)
+        msg_prop.ang_dir.data -= 2;
+
+    if(cnt_ad > 0 && msg_prop.ang_esq.data < 180)
+        msg_prop.ang_esq.data += 2;
+    else if(cnt_ad < 0 && msg_prop.ang_esq.data > 0)
+        msg_prop.ang_esq.data -= 2;
+
+    propulsao.publish(msg_prop);
 }
 
 int main(int argc, char **argv){
@@ -222,7 +240,7 @@ int main(int argc, char **argv){
 
 	ros::Rate loopRate(24);
 
-	while(!ros::param::param("/autoboat/launch/joystick",true))
+    while(!ros::param::param("autoboat/launch/joystick",true))
 		loopRate.sleep();
 	
 	pub_caracol.dir.data = 0;
@@ -230,18 +248,20 @@ int main(int argc, char **argv){
 	//documento que especifica os tópicos e mensagens
 	// https://docs.google.com/spreadsheets/d/1Wz0p-1ZMdkYuoWRdanlzbrur67RxHFoacW9EP3fiRCk/edit
 
-	caracol = nodo.advertise<autoboat_msgs::Stepper_msg>("/autoboat/caracol/caracol_stepper_cmd", 10);
-	base = nodo.advertise<autoboat_msgs::Stepper_msg>("/autoboat/caracol/base_stepper_cmd", 10);
-	propulsao = nodo.advertise<autoboat_msgs::Prop_msg>("/autoboat/prop", 10);
-	garra = nodo.advertise<std_msgs::Bool>("/autoboat/garra/open", 10);
-	led[0] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_laranja",10);
-	led[1] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_azul",10);
-	led[2] = nodo.advertise<std_msgs::Bool>("/autoboat/interface/LED_verde",10);
+    caracol = nodo.advertise<autoboat_msgs::Stepper_msg>("autoboat/caracol/caracol_stepper_cmd", 10);
+    base = nodo.advertise<autoboat_msgs::Stepper_msg>("autoboat/caracol/base_stepper_cmd", 10);
+    propulsao = nodo.advertise<autoboat_msgs::Prop_msg>("autoboat/prop", 10);
+    garra = nodo.advertise<std_msgs::Bool>("autoboat/garra/open", 10);
+    led[0] = nodo.advertise<std_msgs::Bool>("autoboat/interface/LED_laranja",10);
+    led[1] = nodo.advertise<std_msgs::Bool>("autoboat/interface/LED_azul",10);
+    led[2] = nodo.advertise<std_msgs::Bool>("autoboat/interface/LED_verde",10);
 
 	ros::Subscriber joystick = nodo.subscribe("joy", 100, joyCallback);
-	ros::Subscriber current_caracol = nodo.subscribe("/autoboat/caracol/caracol_stepper_current", 1, current_caracolCallback);
+    ros::Subscriber current_caracol = nodo.subscribe("autoboat/caracol/caracol_stepper_current", 1, current_caracolCallback);
 
-	while(ros::ok() && nodo.param("/autoboat/launch/joystick",true))
+    timer = nodo.createTimer(ros::Duration(.02),timer_callback,false);
+
+    while(ros::ok() && nodo.param("autoboat/launch/joystick",true))
 	{
 		ros::spinOnce();
 		loopRate.sleep();

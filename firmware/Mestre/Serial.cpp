@@ -88,7 +88,7 @@ void envia_bateria(int i, int v)
 
 void confirma_envio()
 {
-  Serial.println(msg_out + END_MSG);    // Envia para o PC
+  Serial.print(msg_out + END_MSG);    // Envia para o PC
   
   msg_out = String(M_ARD) + INF_MSG ID_ARDUINO; // Reseta buffer com ID do Arduino
 }
@@ -121,7 +121,7 @@ void decodifica_msg()
   
   if(msg_in == ID_msg) // Caso o PC esteja perguntando o ID deste Arduino
   {
-    Serial.println(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
+    Serial.print(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
     return;
   }
   else if(msg_in != Data_msg)  // Se não for ID_msg nem Data_msg, algo errado não está certo
@@ -131,7 +131,7 @@ void decodifica_msg()
   
   if(msg_in != ID_ARDUINO)   // Se o Arduino de destino não for este
   {
-    Serial.println(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
+    Serial.print(String(M_ARD) + INF_MSG ID_ARDUINO END_MSG);
     return;
   }
 

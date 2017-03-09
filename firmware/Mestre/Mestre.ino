@@ -20,6 +20,7 @@ enum LED_cor {laranja, azul, verde};
 bool estado_led[3], estado_botao; // Placa de interface
 uint16_t ultrassom[4];            // Leituras dos ultrassons
 int lipo_i, lipo_v;               // Corrente e tensão na bateria
+void comando_leds(bool,bool,bool);
 void piscaLEDs();
 
 // Manipulador
@@ -55,7 +56,11 @@ void loop()
 
   if(!ligado)                                         // Executa apenas uma vez, para ligar o robô
     if(RXbuff[0] == interf_LiPO && RXbuff[1] == HIGH) // Verifica se o botão foi pressionado
+    {
+      comando_leds(false,false,false);
+      comando_prop(0,0,0,0);
       ligado = true;
+    }
     else
     {
       piscaLEDs();
@@ -122,6 +127,17 @@ void comando_leds(LED_cor cor, bool estado)
   delay(70);
 }
 
+void comando_leds(bool estado_L, bool estado_A, bool estado_V)
+{ 
+  TXbuff[0] = interface;  // Indica que a mensagem se destina à placa de interface
+  TXbuff[1] = estado_L;
+  TXbuff[2] = estado_A;
+  TXbuff[3] = estado_V;
+
+  Master.write(chassi_address, TXbuff, TX_MSG_SIZE);
+  delay(70);
+}
+
 void msg_recebida()
 {
   pronto_para_envio = true;
@@ -129,23 +145,18 @@ void msg_recebida()
 
 void piscaLEDs()
 {
-  static unsigned int t = millis()/150;
-
-  switch(t % 3)
+  switch(millis()/150 % 3)
   {
   case 0:
-    comando_leds(laranja, false);
-    comando_leds(azul, true);
+    comando_leds(true, false, false);
     break;
 
   case 1:
-    comando_leds(azul, false);
-    comando_leds(verde, true);
+    comando_leds(false, true, false);
     break;
 
   case 2:
-    comando_leds(verde, false);
-    comando_leds(laranja, true);
+    comando_leds(false, false, true);
   }
 }
 
