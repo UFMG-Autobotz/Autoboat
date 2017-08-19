@@ -10,18 +10,15 @@ O Melhor Barco de Minas
 ║  ╠══ src        Codigo fonte
 ║  ╚══ config     Arquivos de configuracao para os programas que rodam no barco
 ║
-╠══firmware       Codigos e imagens para Arduinos, raspberrys, beagleBones, etc...
+╠══doc            Documentações
 ║
-╠══telemetria     Códigos de telemetria **
+╠══firmware       Codigos e imagens para Arduinos, raspberrys, beagleBones, etc...
 ║
 ╚══util           Utilitários usados juntos do robô (ex: calibração, processamento de bags)
 
 
 * As pastas devel e build não devem ser incluidas no repositório
   pois são binários. Essas pastas estão no gitignore.
-
-** O nó de telemetria que roda dentro do robô fica em 
-   autoboat_ws. O cliente que roda em outro PC fica em telemetria.
 </pre>
 
 # Instruções
@@ -46,10 +43,7 @@ Para compilar os códigos, é necessário que as seguintes versões mais recente
 - [I2C, I2Cdev e MPU6050](https://drive.google.com/drive/u/0/folders/0BwwHJR9yDw-LWFl2aUVUamx4WG8)
 
 ### Inicialização
-TODO: Instruções de inicialização do robô
-
-### Calibração
-TODO: Instruções de como gerar calibrações e colocá-las em autoboat_ws/config (se houver alguma calibração)
+É necessário pressionar o botão da placa de interface para que o robô inicialize. Enquanto ele não for inicializado, os LEDs da placa ficarão piscando de maneira cíclica. Pode ser necessário manter o botão pressionado por um determinado período de tempo, até que os LEDs se apaguem.
 
 ### Telemetria
 - Antes de compilar, é necessário instalar o pacote qt-ros  
@@ -62,5 +56,5 @@ Também é necessária a seguinte gambiarra:
 
 E tá pronto o sorvetinho
 
-- Para estabelecer a conexão entre os dois computadores:  
+- Caso se deseje estabelecer a conexão entre os dois computadores:  
   *(será adicionado em breve, por enquanto talvez [isso](http://wiki.ros.org/ROS/Tutorials/MultipleMachines) e [isso](http://wiki.ros.org/ROS/NetworkSetup) sejam útieis)*
