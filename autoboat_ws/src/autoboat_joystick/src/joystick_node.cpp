@@ -284,8 +284,8 @@ int main(int argc, char **argv)
     led[2] =    nh.advertise<std_msgs::Bool>("autoboat/interface/LED_verde",10);
 
     // Associa calbacks do joystick e do timer
-    nh.subscribe("joy", 100, joyCallback);
-    nh.createTimer(ros::Duration(.02),timer_callback,false);
+    ros::Subscriber joy_cb = nh.subscribe("joy", 100, joyCallback);
+    ros::Timer joy_timer = nh.createTimer(ros::Duration(.02),timer_callback,false);
 
     while(ros::ok() && nh.param("autoboat/launch/joystick",true))
     {

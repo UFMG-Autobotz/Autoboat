@@ -83,8 +83,10 @@ void setup() {
     ServoR.attach(DIRR);
     ServoL.attach(DIRL);
 
-    MotorR.write(0); 
-    MotorL.write(0);
+    digitalWrite(PWMR,0);
+    digitalWrite(PWML,0);
+    digitalWrite(DIRR,0);
+    digitalWrite(DIRL,0);
     
     pinMode(LED1,OUTPUT);
     pinMode(LED2,OUTPUT);
@@ -93,6 +95,9 @@ void setup() {
 }
 
 void loop() {
+
+    while(!Slave.getTXCnt())
+      alertaI2C();
 
     //Le o botão da placa de interface
     bool estado_botao = digitalRead(SW1);
@@ -108,8 +113,8 @@ void loop() {
     int corrente = analogRead(bat_i);
 
     //Recebe mensagens do mestre
-    if( Slave.newMessage() ){
-
+    if(Slave.newMessage())
+    {
         switch(RXBuff[0])
         {
         case prop:
@@ -166,4 +171,19 @@ void loop() {
         TXBuff[2] = corrente;
         TXBuff[3] = tensao;
     }
+}
+
+void alertaI2C()
+{
+  switch(millis()/125 % 8)
+  {
+  case 0:
+  case 2:
+  case 4:
+    digitalWrite(LED1,HIGH);
+    break;
+    
+  default:
+    digitalWrite(LED1,LOW);
+  }
 }

@@ -3,19 +3,19 @@
 
 enum  // Pinagem
 {
-  base_1 = 3,
-  base_2,
-  base_3,
-  base_4,
-  caracol_1,
-  caracol_2,
-  caracol_3,
-  caracol_4,
-  garra_1,
-  garra_2,
-  garra_en,
-  infrav_1,
-  infrav_2
+  base_1    = 3,
+  base_2    = 4,
+  base_3    = 5,
+  base_4    = 6,
+  caracol_1 = 7,
+  caracol_2 = 8,
+  caracol_3 = 9,
+  caracol_4 = 10,
+  garra_1   = 11,
+  garra_2   = 12,
+  garra_en  = 13,
+  infrav_1  = A0,
+  infrav_2  = A1
 };
 
 int leitura_sensor_dentro, leitura_sensor_fora, passo_atual_base, passo_atual_caracol;
