@@ -37,7 +37,6 @@ inline float get_last_gyro_z_angle() {return last_gyro_z_angle;}
 float    base_x_accel;
 float    base_y_accel;
 float    base_z_accel;
-
 float    base_x_gyro;
 float    base_y_gyro;
 float    base_z_gyro;
